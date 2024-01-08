@@ -7,4 +7,18 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="fond.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="fond.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Images\fond.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
