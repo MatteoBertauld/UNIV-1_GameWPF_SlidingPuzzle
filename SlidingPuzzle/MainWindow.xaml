@@ -18,18 +18,19 @@
         KeyUp="CanvasKeyIsUp">
         <Button
             x:Name="Generer"
-            Width="105"
-            Height="50"
-            Margin="318,346,0,0"
-            HorizontalAlignment="Left"
+            Width="62"
+            Height="33"
+            HorizontalAlignment="Center"
             VerticalAlignment="Top"
             Click="Generer_Click"
-            Content="Générer" />
+            Content="Générer" Canvas.Left="10" Canvas.Top="187" />
         <Label
             x:Name="debug"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Content="debug :" />
+        <Rectangle Height="100" Canvas.Left="125" Stroke="Black" Canvas.Top="255" Width="100"/>
+
 
 
     </Canvas>

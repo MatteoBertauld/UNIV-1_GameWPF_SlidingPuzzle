@@ -26,16 +26,21 @@ namespace SlidingPuzzle
         // crée une nouvelle instance de la classe dispatch timer
         private DispatcherTimer dispatcherTimer = new DispatcherTimer();
 
-        int[] valeurGrille = new int[9];
-        Label[] grille = new Label[9];
+        int[] valeurGrille;
+        Label[] grille;
+        int taille = (int)Math.Pow(4,2);
 
 
         public MainWindow()
         {
-            Generation_doubletableau(ref valeurGrille);
             InitializeComponent();
-            CreerCase(ref grille);
-            AffichageGrille(ref grille, valeurGrille);
+
+            valeurGrille = new int[taille];
+            grille = new Label[taille];
+
+            Generation_doubletableau();
+            CreerCase(taille);
+            AffichageGrille();
             // configure le Timer et les événements
             // lie le timer du répartiteur à un événement appelé moteur de jeu gameengine
             dispatcherTimer.Tick += GameEngine;
@@ -49,28 +54,35 @@ namespace SlidingPuzzle
         {
         }
 
-        private void CreerCase(ref Label[] grille)
+        private void CreerCase(int taille)
         {
-            int compteur = 0;
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < taille; i++)
             { 
                 Label test = new Label
                 {
                     Name = "case" + Convert.ToString(i),
                     Content = "x",
+                    FontSize = 18,
                 };
-                Canvas.SetTop(test, 80 + i/3*100);
-                Canvas.SetLeft(test, 250 + i%3*100);
+                Canvas.SetTop(test, 80 + i/((int)Math.Sqrt(taille))*100);
+                Canvas.SetLeft(test, 250 + i%((int)Math.Sqrt(taille))*100);
 
                 grille[i] = test;
-                compteur += 1;
-
                 myCanvas.Children.Add(test);
+
+
+                Rectangle carre = new Rectangle
+                {
+                    Name = "rectangle" + Convert.ToString(i),
+                    Width = 100,
+                    Height = 100,
+                };
+                Canvas.SetTop(carre, 80 + i / ((int)Math.Sqrt(taille)) * 100);
+                Canvas.SetLeft(carre, 250 + i % ((int)Math.Sqrt(taille)) * 100);
             }
-            debug.Content = "debug:\n" + compteur;
         }
 
-        private void AffichageGrille(ref Label[] grille, int[] valeurGrille)
+        private void AffichageGrille()
         {
             for(int i = 0 ; i < grille.Length ; i++)
             {
@@ -78,12 +90,35 @@ namespace SlidingPuzzle
             };
         }
 
-        private void Generer_Click(object sender, RoutedEventArgs e)
+        private void Generation_doubletableau()
         {
-            Generation_doubletableau(ref valeurGrille);
-            AffichageGrille(ref grille, valeurGrille);
+            int indice = 0;
+            Random alea = new Random();
+            List<int> nombreDisponible = new List<int>();
+            for (int i = 0 ;i< taille; i++)
+            {
+                nombreDisponible.Add(i);
+            }
+
+            for (int i = 0; i < valeurGrille.Length; i++)
+            {
+                if (nombreDisponible.Count > 0)
+                {
+                    indice = alea.Next(0, nombreDisponible.Count);
+                }
+
+                debug.Content = "\nvaleur = " + nombreDisponible[indice] + "\nindice " + indice + "\nlongueur " + nombreDisponible.Count;
+
+                valeurGrille[i] = nombreDisponible[indice];
+                nombreDisponible.RemoveAt(indice);
+            }
         }
 
+        private void Generer_Click(object sender, RoutedEventArgs e)
+        {
+            Generation_doubletableau();
+            AffichageGrille();
+        }
     
         private void CanvasKeyIsDown(object sender, KeyEventArgs e)
         {
@@ -114,29 +149,6 @@ namespace SlidingPuzzle
             if (e.Key == Key.Right)
             {
                 goRight = false;
-            }
-        }
-
-
-        public static void  Generation_doubletableau(ref int[] grille)
-        {
-            int indice = 0;
-            Random alea = new Random();
-            List<int> nombreDisponible = new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-            int longueur = nombreDisponible.Count;
-
-            for (int i = 0; i < grille.Length; i++)
-            {
-                if (longueur > 0)
-                {
-                    indice = alea.Next(0, longueur);
-                }
-
-                Console.WriteLine("valeur = " + nombreDisponible[indice] + " indice " + indice + " longueur " + longueur);
-
-                grille[i] = nombreDisponible[indice];
-                nombreDisponible.RemoveAt(indice);
-                longueur -= 1;
             }
         }
     }
