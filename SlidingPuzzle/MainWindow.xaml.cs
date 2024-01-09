@@ -34,9 +34,6 @@ namespace SlidingPuzzle
         public MainWindow()
         {
 
-
-            CreerCase(ref grille);
-            AffichageGrille(ref grille, valeurGrille);
             InitializeComponent();
 
             Menu FenetreMenu = new Menu();
