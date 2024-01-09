@@ -33,7 +33,16 @@ namespace SlidingPuzzle
 
         public MainWindow()
         {
+
+
+            CreerCase(ref grille);
+            AffichageGrille(ref grille, valeurGrille);
             InitializeComponent();
+
+            Menu FenetreMenu = new Menu();
+            FenetreMenu.ShowDialog();
+            if (FenetreMenu.DialogResult == false)
+                Application.Current.Shutdown();
 
             valeurGrille = new int[taille];
             grille = new Label[taille];
