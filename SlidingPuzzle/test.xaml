@@ -1,27 +1,24 @@
-﻿<Window x:Class="SlidingPuzzle.test"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SlidingPuzzle"
-        mc:Ignorable="d"
-        Title="test" Height="450" Width="800">
-    <Grid ShowGridLines="True">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Ellipse Grid.Column="1" Grid.ColumnSpan="1" Fill="#FF630707"/>
-    </Grid>
+﻿<Window
+    x:Class="SlidingPuzzle.test"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SlidingPuzzle"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="test"
+    Width="800"
+    Height="800"
+    mc:Ignorable="d">
+    <DockPanel>
+        <Rectangle Height="100" DockPanel.Dock="Top" />
+        <Rectangle Height="100" DockPanel.Dock="Bottom" />
+        <Rectangle Width="100" DockPanel.Dock="Left" />
+        <Rectangle Width="100" DockPanel.Dock="Right" />
+        <Grid x:Name="maGrille">
+            <Ellipse
+                Grid.Column="1"
+                Grid.ColumnSpan="1"
+                Fill="#FF630707" />
+        </Grid>
+    </DockPanel>
 </Window>

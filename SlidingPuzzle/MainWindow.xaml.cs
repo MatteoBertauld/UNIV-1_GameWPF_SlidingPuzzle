@@ -28,7 +28,7 @@ namespace SlidingPuzzle
 
         int[] valeurGrille;
         Label[] grille;
-        int taille = (int)Math.Pow(4,2);
+        int taille = (int)Math.Pow(15,2);
 
 
         public MainWindow()
@@ -41,9 +41,11 @@ namespace SlidingPuzzle
             if (FenetreMenu.DialogResult == false)
                 Application.Current.Shutdown();
 
+
             valeurGrille = new int[taille];
             grille = new Label[taille];
 
+            CreationGrille(taille);
             Generation_doubletableau();
             CreerCase(taille);
             AffichageGrille();
@@ -60,31 +62,39 @@ namespace SlidingPuzzle
         {
         }
 
+        private void CreationGrille(int taille)
+        {
+            //maGrille.ShowGridLines = true;
+
+            for(int i = 0; i < Math.Sqrt(taille); i++)
+            {
+                ColumnDefinition colone = new ColumnDefinition();
+                maGrille.ColumnDefinitions.Add(colone);
+
+                RowDefinition ligne = new RowDefinition();
+                maGrille.RowDefinitions.Add(ligne);
+            }
+        }
+
         private void CreerCase(int taille)
         {
             for (int i = 0; i < taille; i++)
-            { 
+            {
                 Label test = new Label
                 {
                     Name = "case" + Convert.ToString(i),
                     Content = "x",
                     FontSize = 18,
                 };
-                Canvas.SetTop(test, 80 + i/((int)Math.Sqrt(taille))*100);
-                Canvas.SetLeft(test, 250 + i%((int)Math.Sqrt(taille))*100);
+                test.VerticalAlignment = VerticalAlignment.Center;
+                test.HorizontalAlignment = HorizontalAlignment.Center;
+                Grid.SetRow(test, i/((int)Math.Sqrt(taille)));
+                Grid.SetColumn(test, i%((int)Math.Sqrt(taille)));
+                //Canvas.SetTop(test, 80 + i/((int)Math.Sqrt(taille))*100);
+                //Canvas.SetLeft(test, 250 + i%((int)Math.Sqrt(taille))*100);
 
                 grille[i] = test;
-                myCanvas.Children.Add(test);
-
-
-                Rectangle carre = new Rectangle
-                {
-                    Name = "rectangle" + Convert.ToString(i),
-                    Width = 100,
-                    Height = 100,
-                };
-                Canvas.SetTop(carre, 80 + i / ((int)Math.Sqrt(taille)) * 100);
-                Canvas.SetLeft(carre, 250 + i % ((int)Math.Sqrt(taille)) * 100);
+                maGrille.Children.Add(test);
             }
         }
 
@@ -113,7 +123,7 @@ namespace SlidingPuzzle
                     indice = alea.Next(0, nombreDisponible.Count);
                 }
 
-                debug.Content = "\nvaleur = " + nombreDisponible[indice] + "\nindice " + indice + "\nlongueur " + nombreDisponible.Count;
+                //debug.Content = "\nvaleur = " + nombreDisponible[indice] + "\nindice " + indice + "\nlongueur " + nombreDisponible.Count;
 
                 valeurGrille[i] = nombreDisponible[indice];
                 nombreDisponible.RemoveAt(indice);

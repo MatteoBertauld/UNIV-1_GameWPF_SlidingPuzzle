@@ -22,6 +22,24 @@ namespace SlidingPuzzle
         public test()
         {
             InitializeComponent();
+
+            maGrille.ShowGridLines = true;
+
+            // Define the Columns
+            ColumnDefinition col1 = new ColumnDefinition();
+            ColumnDefinition col2 = new ColumnDefinition();
+            ColumnDefinition col3 = new ColumnDefinition();
+            maGrille.ColumnDefinitions.Add(col1);
+            maGrille.ColumnDefinitions.Add(col2);
+            maGrille.ColumnDefinitions.Add(col3);
+
+            // Define the Rows
+            RowDefinition ligne1 = new RowDefinition();
+            RowDefinition ligne2 = new RowDefinition();
+            RowDefinition ligne3 = new RowDefinition();
+            maGrille.RowDefinitions.Add(ligne1);
+            maGrille.RowDefinitions.Add(ligne2);
+            maGrille.RowDefinitions.Add(ligne3);
         }
     }
 }
