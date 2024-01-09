@@ -32,8 +32,16 @@ namespace SlidingPuzzle
 
         public MainWindow()
         {
-            Generation_doubletableau(ref valeurGrille);
+            
             InitializeComponent();
+           
+            Menu FenetreMenu = new Menu();
+            FenetreMenu.ShowDialog();
+            if (FenetreMenu.DialogResult == false)            
+                Application.Current.Shutdown();
+            Generation_doubletableau(ref valeurGrille);
+
+
             CreerCase(ref grille);
             AffichageGrille(ref grille, valeurGrille);
             // configure le Timer et les événements

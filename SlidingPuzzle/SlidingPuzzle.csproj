@@ -8,10 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="close-window.png" />
     <None Remove="fond.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="close-window.png" />
     <Resource Include="fond.png" />
   </ItemGroup>
 

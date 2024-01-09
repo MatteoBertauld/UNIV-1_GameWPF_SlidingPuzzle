@@ -6,6 +6,7 @@
     xmlns:local="clr-namespace:SlidingPuzzle"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="MainWindow"
+    WindowStartupLocation="CenterScreen"
     Width="800"
     Height="450"
     mc:Ignorable="d">
@@ -18,13 +19,12 @@
         KeyUp="CanvasKeyIsUp">
         <Button
             x:Name="Generer"
-            Width="105"
+            Width="104"
             Height="50"
-            Margin="318,346,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Click="Generer_Click"
-            Content="Générer" />
+            Content="Générer" Canvas.Left="348" Canvas.Top="351" />
         <Label
             x:Name="debug"
             HorizontalAlignment="Center"

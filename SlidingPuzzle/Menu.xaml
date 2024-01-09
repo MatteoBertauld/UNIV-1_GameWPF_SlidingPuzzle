@@ -15,9 +15,14 @@
         </ComboBox>
         <Label Content="Difficulté" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" Foreground="White" FontSize="24" Margin="0,320,0,0"/>
         <Label Content="MENU" VerticalAlignment="Top" FontSize="72" FontWeight="Bold" HorizontalAlignment="Center" Width="238" Height="129" Background="#0269481F" Foreground="White" Margin="0,33,0,0"/>
-        <Button Content="JOUER" HorizontalAlignment="Center" Margin="0,419,0,0" VerticalAlignment="Top" Click="Button_Click" Width="94" Background="#00A06E31" BorderBrush="Black" FontSize="22" Height="49"/>
+        <Button x:Name="boutonJouer" Content="JOUER" HorizontalAlignment="Center" Margin="0,419,0,0" VerticalAlignment="Top" Click="Button_Click" Width="94" Background="#00A06E31" BorderBrush="Black" FontSize="22" Height="49"/>
         <Rectangle HorizontalAlignment="Center" Height="174" Margin="0,6,0,0" Stroke="Black" VerticalAlignment="Top" Width="442"/>
         <Label Content="BERTAULD Mattéo | ALLEON Victor" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,627,0,0" FontWeight="Bold" FontSize="14"/>
+        <Button x:Name="Boutonquitter" Content="" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="51" Width="51" Click="quitter_Click" BorderBrush="#00707070">
+            <Button.Background>
+                <ImageBrush ImageSource="/close-window.png"/>
+            </Button.Background>
+        </Button>
 
         <Grid.Background>
             <ImageBrush ImageSource="/fond.png"/>
