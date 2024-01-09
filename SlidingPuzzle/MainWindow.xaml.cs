@@ -28,6 +28,8 @@ namespace SlidingPuzzle
 
         int[] valeurGrille = new int[9];
         Label[] grille = new Label[9];
+        string choixComboBox;
+        int difficulte;
 
 
         public MainWindow()
@@ -35,11 +37,12 @@ namespace SlidingPuzzle
             
             InitializeComponent();
            
-            Menu FenetreMenu = new Menu();
-            FenetreMenu.ShowDialog();
-            if (FenetreMenu.DialogResult == false)            
+            Menu fenetreMenu = new Menu();
+            fenetreMenu.ShowDialog();
+            if (fenetreMenu.DialogResult == false)
                 Application.Current.Shutdown();
-            Generation_doubletableau(ref valeurGrille);
+            else
+                difficulte = fenetreMenu.Niveau;
 
 
             CreerCase(ref grille);
@@ -75,7 +78,7 @@ namespace SlidingPuzzle
 
                 myCanvas.Children.Add(test);
             }
-            debug.Content = "debug:\n" + compteur;
+            debug.Content = "debug:\n" + difficulte;
         }
 
         private void AffichageGrille(ref Label[] grille, int[] valeurGrille)

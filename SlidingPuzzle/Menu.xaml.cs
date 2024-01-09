@@ -19,19 +19,22 @@ namespace SlidingPuzzle
     /// </summary>
     public partial class Menu : Window
     {
+        private int choix;
+        private int niveau;
         public Menu()
         {
             InitializeComponent();
         }
 
-        private void Difficulté_DragOver(object sender, DragEventArgs e)
-        {
-            Choix.Visibility = Visibility.Visible;
-        }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            choix = comboBoxChoix.SelectedIndex;
             this.DialogResult = true;
+        }        
+
+        public int Niveau
+        {
+            get { if (choix == 0) niveau = 3; else if (choix == 1) niveau = 4; else niveau = 5;  return niveau; }
         }
 
         private void quitter_Click(object sender, RoutedEventArgs e)
