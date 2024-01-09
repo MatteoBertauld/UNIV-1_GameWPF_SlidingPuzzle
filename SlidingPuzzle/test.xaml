@@ -22,5 +22,6 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        <Ellipse Grid.Column="1" Grid.ColumnSpan="1" Fill="#FF630707"/>
     </Grid>
 </Window>
