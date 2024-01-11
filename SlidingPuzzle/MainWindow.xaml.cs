@@ -28,7 +28,6 @@ namespace SlidingPuzzle
         private DispatcherTimer temps;
         private int compteurTemps =1;
         // booléens pour aller à gauche et à droite
-        private bool goLeft, goRight, jump, jumpPhase1, boolScore = false;
         // crée une nouvelle instance de la classe dispatch timer
         private DispatcherTimer dispatcherTimer = new DispatcherTimer();
         int[] valeurGrille;
@@ -96,7 +95,7 @@ namespace SlidingPuzzle
         private void CreationGrille(int taille)
         {
             //maGrille.ShowGridLines = true;
-
+            
             for(int i = 0; i < Math.Sqrt(taille); i++)
             {
                 ColumnDefinition colone = new ColumnDefinition();
@@ -111,39 +110,38 @@ namespace SlidingPuzzle
         {
             Button bouton = sender as Button;
 
+            int temp;
             int colonne = Grid.GetColumn(bouton);
             int ligne = Grid.GetRow(bouton);
-            int numero = colonne * (int)Math.Sqrt(taille) + ligne;
-            labelDebug.Content = "colonne bouton " + colonne + " ligne " + ligne;
+            int numero = ligne * (int)Math.Sqrt(taille) + colonne;
+            //labelDebug.Content = "colonne bouton " + colonne + " ligne " + ligne + "numero " + numero;
 
             foreach (Button bout in boutons)
             {
                 int c2 = Grid.GetColumn(bout);
                 int l2 = Grid.GetRow(bout);
-                int num2 = c2 * (int)Math.Sqrt(taille) + l2;
+                int num2 = l2 * (int)Math.Sqrt(taille) + c2;
 
                 if (bout.Tag == "zero")
                 {
+                    labelDebug.Content = "colonne zero " + colonne + " ligne " + ligne + "numero " + numero;
                     if (( (c2 == colonne - 1 || c2 == colonne + 1) && (l2 == ligne) ) || ( (l2 == ligne - 1 || l2 == ligne + 1) && (c2 == colonne) ) )
                     {
-                        bout.Tag = "";
-                        //bout.Content = bouton.Content;
-                        bout.Visibility = Visibility.Visible;
-                        boutons[num2].Background = boutonSkin[numero];
+                        temp = valeurGrille[numero];
+                        valeurGrille[numero] = valeurGrille[num2];
+                        valeurGrille[num2] = temp;
 
-                        bouton.Visibility = Visibility.Hidden;
-                        //bouton.Content = "";
+
+                        bout.Tag = "";
+                        bout.Visibility = Visibility.Visible;
+                        boutons[num2].Background = boutonSkin[valeurGrille[num2]];
+
                         bouton.Tag = "zero";
-                        boutons[numero].Background = boutonSkin[num2];
+                        bouton.Visibility = Visibility.Hidden;
+                        boutons[numero].Background = boutonSkin[valeurGrille[numero]];
                     }
                 }
             }
-
-
-
-
-
-
         }
 
         private void CreerBoutons(int taille)
@@ -153,11 +151,7 @@ namespace SlidingPuzzle
                 Button test2 = new Button
                 {
                     Name = "bouton" + i.ToString(),
-                    Height = 60,
-                    Width = 60,
                 };
-                test2.VerticalAlignment = VerticalAlignment.Center;
-                test2.HorizontalAlignment = HorizontalAlignment.Center;
                 Grid.SetRow(test2, i / (int)Math.Sqrt(taille));
                 Grid.SetColumn(test2, i % (int)Math.Sqrt(taille));
 
@@ -181,11 +175,11 @@ namespace SlidingPuzzle
                 {
                     boutons[i].Tag = "";
                     //boutons[i].Content = valeurGrille[i].ToString();
-                    boutons[i].Background = boutonSkin[i];
+                    boutons[i].Background = boutonSkin[valeurGrille[i]];
 
                 } else 
                 {
-                    boutons[i].Background = boutonSkin[i];
+                    boutons[i].Background = boutonSkin[valeurGrille[i]];
                     //boutons[i].Content = "";
                     boutons[i].Tag = "zero";
                     boutons[i].Visibility = Visibility.Hidden;
