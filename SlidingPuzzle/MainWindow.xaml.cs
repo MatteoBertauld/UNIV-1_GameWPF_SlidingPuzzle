@@ -36,6 +36,7 @@ namespace SlidingPuzzle
         int difficulte;
         Button[] boutons;
         ImageBrush[] boutonSkin;
+        int minute;
 
         int taille = (int)Math.Pow(5,2);
 
@@ -80,7 +81,7 @@ namespace SlidingPuzzle
         }
         private void Timer_Tick(object sender, EventArgs e)
         {
-            labTemps.Content = "Temps : " + minute + "min" + (compteurTemps++) + "s";
+            //labTemps.Content = "Temps : " + minute + "min" + (compteurTemps++) + "s";
             if ((double) compteurTemps % 60 == 0)
             {
                 compteurTemps = 0;
