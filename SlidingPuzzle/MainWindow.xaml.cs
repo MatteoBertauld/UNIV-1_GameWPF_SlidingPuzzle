@@ -32,6 +32,7 @@ namespace SlidingPuzzle
 
         int[] valeurGrille;
         Label[] grille;
+        int difficulte;
         Button[] boutons;
         ImageBrush[] boutonSkin;
 
@@ -45,10 +46,15 @@ namespace SlidingPuzzle
             Menu FenetreMenu = new Menu();
             FenetreMenu.ShowDialog();
             if (FenetreMenu.DialogResult == false)
+           
+            Menu fenetreMenu = new Menu();
+            fenetreMenu.ShowDialog();
+            if (fenetreMenu.DialogResult == false)
+                Application.Current.Shutdown();
                 System.Windows.Application.Current.Shutdown();
+            else
+                difficulte = fenetreMenu.Niveau;
 
-            Outil FenetreOutil = new Outil();
-            FenetreOutil.Show();
 
             valeurGrille = new int[taille];
             grille = new Label[taille];
@@ -148,6 +154,7 @@ namespace SlidingPuzzle
                 boutonSkin[i].ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/Triopiqueur/5x5/" + i + ".jpg"));
                 boutons[i].Background = boutonSkin[i];
             }
+            debug.Content = "debug:\n" + difficulte;
         }
 
 
