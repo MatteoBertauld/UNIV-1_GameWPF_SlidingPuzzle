@@ -1,0 +1,32 @@
+﻿<Window
+    x:Class="SlidingPuzzle.Outil"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SlidingPuzzle"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="test"
+    Width="200"
+    Height="200"
+    mc:Ignorable="d">
+    <Canvas
+        Name="myCanvas"
+        Background="White"
+        Focusable="True">
+        <Button
+            x:Name="Generer"
+            Grid.Row="1"
+            Canvas.Left="70"
+            Canvas.Top="32"
+            Width="60"
+            Height="60"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Click="Generer_Click"
+            Content="Générer" Visibility="Hidden">
+            <Button.Background>
+                <ImageBrush ImageSource="/0.jpg" />
+            </Button.Background>
+        </Button>
+    </Canvas>
+</Window>

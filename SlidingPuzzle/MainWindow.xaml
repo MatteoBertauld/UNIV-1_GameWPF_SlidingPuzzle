@@ -6,36 +6,43 @@
     xmlns:local="clr-namespace:SlidingPuzzle"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="MainWindow"
-    Width="800"
-    Height="450"
+    Width="600"
+    Height="600"
     KeyDown="CanvasKeyIsDown"
     KeyUp="CanvasKeyIsUp"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <DockPanel>
-        <Grid
-            Height="100"
+        <Rectangle
+            Height="50"
             DockPanel.Dock="Top"
-            ShowGridLines="True">
-
-            <Button
-                x:Name="Generer"
-                Grid.Row="1"
-                Width="62"
-                Height="60"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Click="Generer_Click"
-                Content="Générer" />
-            <Label x:Name="labTemps" Content="" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="202"/>
-        </Grid>
+            Fill="#FF909090" />
+        <Rectangle
+            Width="50"
+            DockPanel.Dock="Right"
+            Fill="#FF909090" />
+        <Rectangle
+            Width="50"
+            DockPanel.Dock="Left"
+            Fill="#FF909090" />
         <Label
-            x:Name="debug"
-            Height="100"
+            x:Name="labelDebug"
+            Canvas.Left="17"
+            Canvas.Top="107"
+            Margin="0,64,0,0"
             Content="Label"
-            DockPanel.Dock="Bottom" />
-        <Rectangle Width="100" DockPanel.Dock="Left" />
-        <Rectangle Width="100" DockPanel.Dock="Right" />
-        <Grid x:Name="maGrille" />
+            DockPanel.Dock="Bottom"
+            FontSize="12" />
+        <Grid x:Name="maGrille" Background="White">
+            <Rectangle
+                x:Name="ImagePuzzle"
+                Grid.RowSpan="5"
+                Grid.ColumnSpan="5"
+                Canvas.Top="5"
+                Width="600"
+                Height="584"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top" />
+        </Grid>
     </DockPanel>
 </Window>
