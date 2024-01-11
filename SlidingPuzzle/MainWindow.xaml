@@ -14,10 +14,6 @@
     mc:Ignorable="d">
     <DockPanel>
         <Rectangle
-            Width="50"
-            DockPanel.Dock="Left"
-            Fill="#FF909090" />
-        <Rectangle
             Height="50"
             DockPanel.Dock="Top"
             Fill="#FF909090" />
@@ -25,13 +21,15 @@
             Width="50"
             DockPanel.Dock="Right"
             Fill="#FF909090" />
+        <Rectangle
+            Width="50"
+            DockPanel.Dock="Left"
+            Fill="#FF909090" />
         <Label
             x:Name="labelDebug"
             Canvas.Left="17"
             Canvas.Top="107"
             Margin="0,64,0,0"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Top"
             Content="Label"
             DockPanel.Dock="Bottom"
             FontSize="12" />

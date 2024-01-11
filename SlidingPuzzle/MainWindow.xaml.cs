@@ -43,14 +43,10 @@ namespace SlidingPuzzle
         public MainWindow()
         {
             InitializeComponent();
-            Menu FenetreMenu = new Menu();
-            FenetreMenu.ShowDialog();
-            if (FenetreMenu.DialogResult == false)
            
             Menu fenetreMenu = new Menu();
             fenetreMenu.ShowDialog();
             if (fenetreMenu.DialogResult == false)
-                Application.Current.Shutdown();
                 System.Windows.Application.Current.Shutdown();
             else
                 difficulte = fenetreMenu.Niveau;
@@ -100,6 +96,7 @@ namespace SlidingPuzzle
             int colonne = Grid.GetColumn(bouton);
             int ligne = Grid.GetRow(bouton);
             int numero = colonne * (int)Math.Sqrt(taille) + ligne;
+            labelDebug.Content = "colonne bouton " + colonne + " ligne " + ligne;
 
             foreach (Button bout in boutons)
             {
@@ -154,7 +151,6 @@ namespace SlidingPuzzle
                 boutonSkin[i].ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/Triopiqueur/5x5/" + i + ".jpg"));
                 boutons[i].Background = boutonSkin[i];
             }
-            debug.Content = "debug:\n" + difficulte;
         }
 
 
