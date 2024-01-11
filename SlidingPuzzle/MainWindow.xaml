@@ -26,23 +26,15 @@
             DockPanel.Dock="Left"
             Fill="#FF909090" />
         <Label
+            
             x:Name="labelDebug"
             Canvas.Left="17"
             Canvas.Top="107"
-            Margin="0,64,0,0"
+            Height="50"
+            Background="#FF909090"
             Content="Label"
             DockPanel.Dock="Bottom"
             FontSize="12" />
-        <Grid x:Name="maGrille" Background="White">
-            <Rectangle
-                x:Name="ImagePuzzle"
-                Grid.RowSpan="5"
-                Grid.ColumnSpan="5"
-                Canvas.Top="5"
-                Width="600"
-                Height="584"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top" />
-        </Grid>
+        <Grid x:Name="maGrille" Background="White" />
     </DockPanel>
 </Window>
