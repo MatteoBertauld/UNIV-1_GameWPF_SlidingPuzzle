@@ -27,6 +27,7 @@
                 VerticalAlignment="Center"
                 Click="Generer_Click"
                 Content="Générer" />
+            <Label x:Name="labTemps" Content="" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="202"/>
         </Grid>
         <Label
             x:Name="debug"

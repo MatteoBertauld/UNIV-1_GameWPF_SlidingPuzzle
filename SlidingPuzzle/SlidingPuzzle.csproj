@@ -8,8 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="victoire.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="close-window.png" />
     <None Remove="fond.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="victoire.xaml" />
   </ItemGroup>
 
   <ItemGroup>

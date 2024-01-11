@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,17 +22,17 @@ namespace SlidingPuzzle
     /// </summary>
     public partial class MainWindow : Window
     {
+        private DispatcherTimer temps;
+        private int compteurTemps =1;
         // booléens pour aller à gauche et à droite
         private bool goLeft, goRight, jump, jumpPhase1, boolScore = false;
         // crée une nouvelle instance de la classe dispatch timer
         private DispatcherTimer dispatcherTimer = new DispatcherTimer();
-
         int[] valeurGrille;
         Label[] grille;
-        int taille = (int)Math.Pow(15,2);
-        int[] valeurGrille = new int[9];
-        Label[] grille = new Label[9];
+        int taille;
         int difficulte;
+        int minute = 0;
 
 
         public MainWindow()
@@ -39,10 +40,6 @@ namespace SlidingPuzzle
 
             InitializeComponent();
 
-            Menu FenetreMenu = new Menu();
-            FenetreMenu.ShowDialog();
-            if (FenetreMenu.DialogResult == false)
-           
             Menu fenetreMenu = new Menu();
             fenetreMenu.ShowDialog();
             if (fenetreMenu.DialogResult == false)
@@ -50,9 +47,10 @@ namespace SlidingPuzzle
             else
                 difficulte = fenetreMenu.Niveau;
 
-
+            taille = difficulte;
             valeurGrille = new int[taille];
             grille = new Label[taille];
+
 
             CreationGrille(taille);
             Generation_doubletableau();
@@ -65,8 +63,23 @@ namespace SlidingPuzzle
             dispatcherTimer.Interval = TimeSpan.FromMilliseconds(17);
             // lancement du timer
             dispatcherTimer.Start();
-        }
 
+
+            temps = new DispatcherTimer();            //timer
+            temps.Interval = TimeSpan.FromSeconds(1); //timer
+            temps.Tick += Timer_Tick;                 //timer
+            temps.Start();                            //timer
+        }
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            labTemps.Content = "Temps : " + minute + "min" + (compteurTemps++) + "s";
+            if ((double) compteurTemps % 60 == 0)
+            {
+                compteurTemps = 0;
+                minute++;
+                
+            }
+        }
         private void GameEngine(object sender, EventArgs e)
         {
         }
