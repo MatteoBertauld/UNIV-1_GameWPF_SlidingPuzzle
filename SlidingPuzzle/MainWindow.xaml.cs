@@ -84,7 +84,7 @@ namespace SlidingPuzzle
         }
         private void Timer_Tick(object sender, EventArgs e)
         {
-            //labTemps.Content = "Temps : " + minute + "min" + (compteurTemps++) + "s";
+            labTemps.Content = "Temps : " + minute + "min" + (compteurTemps++) + "s";
             if ((double) compteurTemps % 60 == 0)
             {
                 compteurTemps = 0;
@@ -94,11 +94,12 @@ namespace SlidingPuzzle
         }
         private void GameEngine(object sender, EventArgs e)
         {
+            Victoire();
         }
 
         private void CreationGrille(int taille)
         {
-            maGrille.ShowGridLines = true;
+            //maGrille.ShowGridLines = true;
             maGrille.ColumnDefinitions.Clear();
             maGrille.RowDefinitions.Clear();
 
@@ -166,7 +167,7 @@ namespace SlidingPuzzle
                 maGrille.Children.Add(test2);
                 boutons[i] = test2;
                 boutonSkin[i] = new ImageBrush();
-                boutonSkin[i].ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/Triopiqueur/5x5/" + i + ".jpg"));
+                boutonSkin[i].ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/couleur/" + i + ".jpg"));
                 boutons[i].Background = boutonSkin[i];
 
                 /*
@@ -209,6 +210,23 @@ namespace SlidingPuzzle
                 }
             };
         }
+
+        private void Victoire()
+        {
+            bool testVictoire = true;
+            for (int i = 0; i < grille.Length; i++)
+            {
+                if (valeurGrille[i] != i)
+                {
+                    //testVictoire = false;
+                }
+            }
+            if (testVictoire) 
+            {
+                canvaVictoire.Visibility = Visibility.Visible;
+            }
+        }
+
 
         private void Generation_doubletableau()
         {

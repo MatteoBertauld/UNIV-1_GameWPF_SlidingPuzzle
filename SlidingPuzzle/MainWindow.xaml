@@ -24,22 +24,35 @@
             DockPanel.Dock="Left"
             Fill="#FF909090" />
         <Label
-            
             x:Name="labelDebug"
-            Canvas.Left="17"
-            Canvas.Top="107"
             Height="50"
             Background="#FF909090"
             DockPanel.Dock="Bottom"
-            FontSize="12" >
-            <Button x:Name="buttGenerer" Content="Voir l'image" Margin="370,10,0,0" HorizontalAlignment="Right" VerticalAlignment="Top" Background="#00DDDDDD" Width="105" Click="Button_Click_1"/>
+            FontSize="12">
+            <Label
+                x:Name="labTemps"
+                Width="188"
+                Content="" />
         </Label>
-        <Grid x:Name="maGrille" Background="White" >
-            <Button Content="" HorizontalAlignment="Left" Margin="-43,-49,0,0" VerticalAlignment="Top" Height="45" Width="44" Click="Button_Click">
+        <Grid x:Name="maGrille" Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="93*"/>
+                <RowDefinition Height="391*"/>
+            </Grid.RowDefinitions>
+            <Button x:Name="home"
+                Width="44"
+                Height="45"
+                Margin="-43,-49,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Click="Button_Click"
+                Content="">
                 <Button.Background>
-                    <ImageBrush ImageSource="/hut.png"/>
+                    <ImageBrush ImageSource="/hut.png" />
                 </Button.Background>
             </Button>
+            <Canvas x:Name="canvaVictoire" Margin="-43,-49,-48,-48" Grid.RowSpan="2" Background="Red" Visibility="Hidden" Panel.ZIndex="1"/>
         </Grid>
     </DockPanel>
+    
 </Window>
