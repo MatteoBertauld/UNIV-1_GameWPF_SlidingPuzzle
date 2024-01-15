@@ -10,9 +10,19 @@
   <ItemGroup>
     <None Remove="0.jpg" />
     <None Remove="2.jpg" />
+    <Compile Remove="victoire.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="close-window.png" />
     <None Remove="fond.png" />
     <None Remove="Images\oiseau.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="0.jpg" />
+    <Resource Include="2.jpg" />
+    <Page Remove="victoire.xaml" />
   </ItemGroup>
 
   <ItemGroup>
