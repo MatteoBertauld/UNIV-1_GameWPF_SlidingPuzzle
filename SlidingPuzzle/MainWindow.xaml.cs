@@ -142,6 +142,28 @@ namespace SlidingPuzzle
                 maGrille.Children.Add(test2);
                 boutons[i] = test2;
                 boutonSkin[i] = new ImageBrush();
+
+                /*
+                System.Windows.Controls.Image clipImage = new System.Windows.Controls.Image();
+                //Create & Set source
+                BitmapImage bi = new BitmapImage();
+
+                bi.BeginInit();
+                bi.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/oiseaux.png");
+                bi.EndInit();
+                clipImage.Source = bi;
+
+                double posx = i / (int)Math.Sqrt(taille) * (int)(clipImage.ActualWidth / Math.Sqrt(taille));
+                double posy = i % (int)Math.Sqrt(taille) * (clipImage.ActualHeight / Math.Sqrt(taille));
+                double largeur = clipImage.ActualWidth / Math.Sqrt(taille);
+                double hauteur = clipImage.ActualHeight / Math.Sqrt(taille);
+
+                //Clip using a rect 
+                RectangleGeometry clipRect = new RectangleGeometry { Rect = new Rect(posx, posy, largeur, hauteur) };
+                clipImage.Clip = clipRect;
+                */
+
+                
                 boutonSkin[i].ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/Triopiqueur/5x5/" + i + ".jpg"));
                 boutons[i].Background = boutonSkin[i];
             }
