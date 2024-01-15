@@ -15,18 +15,13 @@ using System.Windows.Shapes;
 namespace SlidingPuzzle
 {
     /// <summary>
-    /// Logique d'interaction pour Outil.xaml
+    /// Logique d'interaction pour Aide.xaml
     /// </summary>
-    public partial class Outil : Window
+    public partial class Aide : Window
     {
-        public Outil()
+        public Aide()
         {
             InitializeComponent();
-        }
-
-        private void Generer_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

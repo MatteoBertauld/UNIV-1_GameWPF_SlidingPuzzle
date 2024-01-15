@@ -14,8 +14,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="close-window.png" />
+    <None Remove="back.png" />
     <None Remove="fond.png" />
+    <None Remove="hut.png" />
+    <None Remove="Images\fond.png" />
+    <None Remove="settings.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,14 +28,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="close-window.png" />
+    <Resource Include="back.png" />
     <Resource Include="fond.png" />
+    <Resource Include="hut.png" />
+    <Resource Include="Images\close-window.png" />
+    <Resource Include="Images\fond.png" />
+    <Resource Include="settings.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Images\fond.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="Images\ImagePuzzle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
