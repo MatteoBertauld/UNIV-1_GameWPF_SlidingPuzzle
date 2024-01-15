@@ -22,8 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="0.jpg" />
-    <Resource Include="2.jpg" />
     <Page Remove="victoire.xaml" />
   </ItemGroup>
 
@@ -38,9 +36,6 @@
 
   <ItemGroup>
     <None Update="Images\ImagePuzzle.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Images\oiseaux.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Images\Triopiqueur\3x3\0.jpg">

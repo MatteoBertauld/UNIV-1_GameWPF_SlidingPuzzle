@@ -32,11 +32,11 @@ namespace SlidingPuzzle
             choix = comboBoxChoix.SelectedIndex;
             mode = (string)comboBoxMode.SelectionBoxItem;
             this.DialogResult = true;
-        }        
+        }
 
         public int Niveau
         {
-            get { if (choix == 0) niveau = 9; else if (choix == 1) niveau = 16; else niveau = 25;  return niveau; }
+            get { if (choix == 0) niveau = 9; else if (choix == 1) niveau = 16; else niveau = 25; return niveau; }
         }
 
         private void quitter_Click(object sender, RoutedEventArgs e)

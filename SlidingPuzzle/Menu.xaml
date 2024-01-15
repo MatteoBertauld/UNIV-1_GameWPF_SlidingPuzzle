@@ -6,49 +6,49 @@
         xmlns:local="clr-namespace:SlidingPuzzle"
         mc:Ignorable="d"
         Title="Menu" Height="700" Width="1200" WindowStartupLocation="CenterScreen">
-    <Grid>
+	<Grid>
 
-        <ComboBox x:Name="comboBoxChoix" HorizontalAlignment="Left" VerticalAlignment="Top" Width="212" Margin="340,366,0,0" Height="38" FontSize="24">
-            <ComboBoxItem Content="Facile" IsSelected="True" />
-            <ComboBoxItem Content="Moyen"/>
-            <ComboBoxItem Content="Difficile"/>
-        </ComboBox>
-        <Label x:Name="labDifficulte" Content="Difficulté" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Foreground="White" FontSize="24" Margin="379,0,0,0"/>
-        <Label Content="MENU" VerticalAlignment="Top" FontSize="72" FontWeight="Bold" HorizontalAlignment="Center" Width="238" Height="129" Background="#0269481F" Foreground="White" Margin="0,33,0,0"/>
-        <Button x:Name="boutonJouer" Content="JOUER" HorizontalAlignment="Center" Margin="0,419,0,0" VerticalAlignment="Top" Click="Button_Click" Width="94" Background="#00A06E31" BorderBrush="Black" FontSize="22" Height="49"/>
-        <Rectangle x:Name="rectDeco" HorizontalAlignment="Center" Height="174" Margin="0,6,0,0" Stroke="Black" VerticalAlignment="Top" Width="442"/>
-        <Label Content="BERTAULD Mattéo | ALLEON Victor" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,627,0,0" FontWeight="Bold" FontSize="14"/>
-        <Button x:Name="boutonQuitter" Content="" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="51" Width="51" Click="quitter_Click" BorderBrush="#00707070">
-            <Button.Background>
-                <ImageBrush ImageSource="Images/close-window.png"/>
-            </Button.Background>
-        </Button>
-        <ComboBox x:Name="comboBoxMode" HorizontalAlignment="Left" VerticalAlignment="Top" Width="212" Margin="650,366,0,0" Height="38" FontSize="24">
-            <ComboBoxItem Content="Une grille" IsSelected="True" />
-            <ComboBoxItem Content="Deux grille"/>
-            <ComboBoxItem Content="Course contre-la-montre"/>
-        </ComboBox>
-        <Label x:Name="labMode" Content="Mode" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Foreground="White" FontSize="24" Margin="718,320,0,0" Height="48"/>
-        <Button x:Name="buttSettings" Content="" HorizontalAlignment="Left" Margin="1118,608,0,0" VerticalAlignment="Top" Height="48" Width="48" BorderBrush="#00707070" Click="Button_Click_1">
-            <Button.Background>
-                <ImageBrush ImageSource="/settings.png"/>
-            </Button.Background>
-        </Button>
-        <Canvas x:Name="canvaParam" Visibility="Hidden">
-            <Canvas.Background>
-                <ImageBrush ImageSource="/fond.png"/>
-            </Canvas.Background>
-            <Label Content="PARAMETRES" Height="82" Width="328" FontSize="48" FontWeight="Bold" Foreground="White" HorizontalAlignment="Left" Canvas.Left="436" Canvas.Top="55" VerticalAlignment="Top"/>
-            <Button x:Name="buttRetour" Content="" Canvas.Left="26" Canvas.Top="28" Height="45" Width="46" BorderBrush="#00707070" Click="Button_Click_2">
-                <Button.Background>
-                    <ImageBrush ImageSource="/back.png"/>
-                </Button.Background>
-            </Button>
-        </Canvas>
+		<ComboBox x:Name="comboBoxChoix" HorizontalAlignment="Left" VerticalAlignment="Top" Width="212" Margin="340,366,0,0" Height="38" FontSize="24">
+			<ComboBoxItem Content="Facile" IsSelected="True" />
+			<ComboBoxItem Content="Moyen"/>
+			<ComboBoxItem Content="Difficile"/>
+		</ComboBox>
+		<Label x:Name="labDifficulte" Content="Difficulté" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Foreground="White" FontSize="24" Margin="379,0,0,0"/>
+		<Label Content="MENU" VerticalAlignment="Top" FontSize="72" FontWeight="Bold" HorizontalAlignment="Center" Width="238" Height="129" Background="#0269481F" Foreground="White" Margin="0,33,0,0"/>
+		<Button x:Name="boutonJouer" Content="JOUER" HorizontalAlignment="Center" Margin="0,419,0,0" VerticalAlignment="Top" Click="Button_Click" Width="94" Background="#00A06E31" BorderBrush="Black" FontSize="22" Height="49"/>
+		<Rectangle x:Name="rectDeco" HorizontalAlignment="Center" Height="174" Margin="0,6,0,0" Stroke="Black" VerticalAlignment="Top" Width="442"/>
+		<Label Content="BERTAULD Mattéo | ALLEON Victor" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,627,0,0" FontWeight="Bold" FontSize="14"/>
+		<Button x:Name="boutonQuitter" Content="" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="51" Width="51" Click="quitter_Click" BorderBrush="#00707070">
+			<Button.Background>
+				<ImageBrush ImageSource="Images/close-window.png"/>
+			</Button.Background>
+		</Button>
+		<ComboBox x:Name="comboBoxMode" HorizontalAlignment="Left" VerticalAlignment="Top" Width="212" Margin="650,366,0,0" Height="38" FontSize="24">
+			<ComboBoxItem Content="Une grille" IsSelected="True" />
+			<ComboBoxItem Content="Deux grille"/>
+			<ComboBoxItem Content="Course contre-la-montre"/>
+		</ComboBox>
+		<Label x:Name="labMode" Content="Mode" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Foreground="White" FontSize="24" Margin="718,320,0,0" Height="48"/>
+		<Button x:Name="buttSettings" Content="" HorizontalAlignment="Left" Margin="1118,608,0,0" VerticalAlignment="Top" Height="48" Width="48" BorderBrush="#00707070" Click="Button_Click_1">
+			<Button.Background>
+				<ImageBrush ImageSource="/settings.png"/>
+			</Button.Background>
+		</Button>
+		<Canvas x:Name="canvaParam" Visibility="Hidden">
+			<Canvas.Background>
+				<ImageBrush ImageSource="/fond.png"/>
+			</Canvas.Background>
+			<Label Content="PARAMETRES" Height="82" Width="328" FontSize="48" FontWeight="Bold" Foreground="White" HorizontalAlignment="Left" Canvas.Left="436" Canvas.Top="55" VerticalAlignment="Top"/>
+			<Button x:Name="buttRetour" Content="" Canvas.Left="26" Canvas.Top="28" Height="45" Width="46" BorderBrush="#00707070" Click="Button_Click_2">
+				<Button.Background>
+					<ImageBrush ImageSource="/back.png"/>
+				</Button.Background>
+			</Button>
+		</Canvas>
 
-        <Grid.Background>
-            <ImageBrush ImageSource="Images/fond.png"/>
-        </Grid.Background>
+		<Grid.Background>
+			<ImageBrush ImageSource="Images/fond.png"/>
+		</Grid.Background>
 
-    </Grid>
+	</Grid>
 </Window>

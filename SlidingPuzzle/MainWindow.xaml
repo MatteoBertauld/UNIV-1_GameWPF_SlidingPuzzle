@@ -8,36 +8,85 @@
     Title="MainWindow"
     Width="600"
     Height="600"
+    MinWidth="300"
+    MinHeight="300"
+    MaxWidth="1000"
+    MaxHeight="1000"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <DockPanel>
         <Rectangle
-            Height="50"
-            DockPanel.Dock="Top"
-            Fill="#FF909090" />
+            MinHeight="20"
+            MaxHeight="50"
+            DockPanel.Dock="Top">
+            <Rectangle.Fill>
+                <LinearGradientBrush>
+                    <GradientStop Color="#FF7F2E00" />
+                    <GradientStop Offset="0.5" Color="#FF2B1400" />
+                    <GradientStop Offset="1" Color="#FF7F2E00" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
         <Rectangle
-            Width="50"
-            DockPanel.Dock="Right"
-            Fill="#FF909090" />
+            MinWidth="20"
+            MaxWidth="50"
+            DockPanel.Dock="Right">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="#FF7F2E00" />
+                    <GradientStop Offset="1" Color="#FF2B1400" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
         <Rectangle
-            Width="50"
-            DockPanel.Dock="Left"
-            Fill="#FF909090" />
+            MinWidth="20"
+            MaxWidth="50"
+            DockPanel.Dock="Left">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="#FF7F2E00" />
+                    <GradientStop Offset="1" Color="#FF2B1400" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
         <Label
-            
             x:Name="labelDebug"
             Canvas.Left="17"
             Canvas.Top="107"
-            Height="50"
-            Background="#FF909090"
+            MinHeight="20"
+            MaxHeight="50"
             DockPanel.Dock="Bottom"
-            FontSize="12" >
-            <Button x:Name="buttGenerer" Content="Voir l'image" Margin="370,10,0,0" HorizontalAlignment="Right" VerticalAlignment="Top" Background="#00DDDDDD" Width="105" Click="Button_Click_1"/>
+            FontSize="12">
+            <Label.Background>
+                <LinearGradientBrush>
+                    <GradientStop Color="#FF2B1400" />
+                    <GradientStop Offset="0.5" Color="#FF7F2E00" />
+                    <GradientStop Offset="1" Color="#FF2B1400" />
+                </LinearGradientBrush>
+            </Label.Background>
+            <Button
+                x:Name="buttGenerer"
+                Width="105"
+                Margin="370,10,0,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Background="#00DDDDDD"
+                Click="Button_Click_1"
+                Content="Voir l'image" />
         </Label>
-        <Grid x:Name="maGrille" Background="White" >
-            <Button Content="" HorizontalAlignment="Left" Margin="-43,-49,0,0" VerticalAlignment="Top" Height="45" Width="44" Click="Button_Click">
+        <Grid x:Name="maGrille" Background="White">
+            <Button
+                Width="45"
+                Height="45"
+                Margin="-43,-49,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Click="Button_Click"
+                Content="">
                 <Button.Background>
-                    <ImageBrush ImageSource="/hut.png"/>
+                    <ImageBrush ImageSource="/hut.png" />
                 </Button.Background>
             </Button>
         </Grid>
