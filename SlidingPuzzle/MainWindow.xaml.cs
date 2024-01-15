@@ -36,7 +36,7 @@ namespace SlidingPuzzle
         Button[] boutons;
         ImageBrush[] boutonSkin;
         int minute;
-
+        string mode;
         int taille = (int)Math.Pow(5,2);
 
 
@@ -53,17 +53,8 @@ namespace SlidingPuzzle
                 difficulte = fenetreMenu.Niveau;
 
             taille = difficulte;
-            valeurGrille = new int[taille];
-            grille = new Label[taille];
-            boutons = new Button[taille];
-            boutonSkin = new ImageBrush[taille];
+            InitialiseJeu();
 
-
-            CreationGrille(taille);
-            Generation_doubletableau();
-            CreerBoutons(taille);
-
-            AffichageGrille();
             // configure le Timer et les événements
             // lie le timer du répartiteur à un événement appelé moteur de jeu gameengine
             dispatcherTimer.Tick += GameEngine;
@@ -77,6 +68,19 @@ namespace SlidingPuzzle
             temps.Interval = TimeSpan.FromSeconds(1); //timer
             temps.Tick += Timer_Tick;                 //timer
             temps.Start();                            //timer
+        }
+
+        private void InitialiseJeu()
+        {
+            valeurGrille = new int[taille];
+            grille = new Label[taille];
+            boutons = new Button[taille];
+            boutonSkin = new ImageBrush[taille];
+            //mode = fenetreMenu.Mode;
+            CreationGrille(taille);
+            Generation_doubletableau();
+            CreerBoutons(taille);
+            AffichageGrille();
         }
         private void Timer_Tick(object sender, EventArgs e)
         {
@@ -94,9 +98,11 @@ namespace SlidingPuzzle
 
         private void CreationGrille(int taille)
         {
-            //maGrille.ShowGridLines = true;
-            
-            for(int i = 0; i < Math.Sqrt(taille); i++)
+            maGrille.ShowGridLines = true;
+            maGrille.ColumnDefinitions.Clear();
+            maGrille.RowDefinitions.Clear();
+
+            for (int i = 0; i < Math.Sqrt(taille); i++)
             {
                 ColumnDefinition colone = new ColumnDefinition();
                 maGrille.ColumnDefinitions.Add(colone);
@@ -238,13 +244,24 @@ namespace SlidingPuzzle
             Generation_doubletableau();
             AffichageGrille();
         }
-    
-        private void CanvasKeyIsDown(object sender, KeyEventArgs e)
+
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
+            Menu retour = new Menu();
+            retour.ShowDialog();
+            if (retour.DialogResult == false)
+                System.Windows.Application.Current.Shutdown();
+            else
+                difficulte = retour.Niveau;
+                taille = difficulte;
+                InitialiseJeu();
         }
 
-        private void CanvasKeyIsUp(object sender, KeyEventArgs e)
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            Aide image = new Aide();
+            image.ShowDialog();
         }
     }
 }

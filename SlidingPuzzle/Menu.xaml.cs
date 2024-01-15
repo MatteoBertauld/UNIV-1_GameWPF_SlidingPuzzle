@@ -21,6 +21,7 @@ namespace SlidingPuzzle
     {
         private int choix;
         private int niveau;
+        private string mode;
         public Menu()
         {
             InitializeComponent();
@@ -29,6 +30,7 @@ namespace SlidingPuzzle
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             choix = comboBoxChoix.SelectedIndex;
+            mode = (string)comboBoxMode.SelectionBoxItem;
             this.DialogResult = true;
         }        
 
@@ -40,6 +42,16 @@ namespace SlidingPuzzle
         private void quitter_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = false;
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            canvaParam.Visibility = Visibility.Visible;
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            canvaParam.Visibility = Visibility.Hidden;
         }
     }
 }
