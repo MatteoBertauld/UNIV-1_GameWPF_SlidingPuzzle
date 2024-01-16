@@ -1,0 +1,5 @@
+Taille des bordure de la fenetre automatique
+fenetre cheat code
+
+Set de Jeu toujours possible
+découper l'image en c#

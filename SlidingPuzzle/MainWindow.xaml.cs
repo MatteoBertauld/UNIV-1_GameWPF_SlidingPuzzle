@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
@@ -10,6 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
@@ -17,6 +19,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using static System.Net.Mime.MediaTypeNames;
+using System.Drawing;
 
 namespace SlidingPuzzle
 {
@@ -25,7 +28,6 @@ namespace SlidingPuzzle
     /// </summary>
     public partial class MainWindow : Window
     {
-        private DispatcherTimer temps;
         private int compteurTemps = 1;
         // booléens pour aller à gauche et à droite
         // crée une nouvelle instance de la classe dispatch timer
@@ -34,12 +36,15 @@ namespace SlidingPuzzle
         Label[] grille;
         int difficulte;
         Button[] boutons;
-        ImageBrush[] boutonSkin;
+        //ImageBrush[] boutonSkin;
+        System.Windows.Controls.Image[] ListeImages;
+        System.Windows.Controls.Image[] ListeImagesTrier;
         int minute;
         string mode;
         int taille = (int)Math.Pow(5, 2);
 
-
+        bool voirImage = false;
+        bool voirImageNouvelleFenetre = false;
 
         public MainWindow()
         {
@@ -55,19 +60,10 @@ namespace SlidingPuzzle
             taille = difficulte;
             InitialiseJeu();
 
-            // configure le Timer et les événements
-            // lie le timer du répartiteur à un événement appelé moteur de jeu gameengine
-            dispatcherTimer.Tick += GameEngine;
-            // rafraissement toutes les 16 milliseconds
-            dispatcherTimer.Interval = TimeSpan.FromMilliseconds(17);
-            // lancement du timer
-            dispatcherTimer.Start();
-
-
-            temps = new DispatcherTimer();            //timer
-            temps.Interval = TimeSpan.FromSeconds(1); //timer
-            temps.Tick += Timer_Tick;                 //timer
-            temps.Start();                            //timer
+            foreach (Button bout in boutons)
+            {
+                bout.Click += Clique;
+            }
         }
 
         private void InitialiseJeu()
@@ -75,7 +71,9 @@ namespace SlidingPuzzle
             valeurGrille = new int[taille];
             grille = new Label[taille];
             boutons = new Button[taille];
-            boutonSkin = new ImageBrush[taille];
+            //boutonSkin = new ImageBrush[taille];
+            ListeImages = new System.Windows.Controls.Image[taille];
+            ListeImagesTrier = new System.Windows.Controls.Image[taille];
             //mode = fenetreMenu.Mode;
             CreationGrille(taille);
             Generation_doubletableau();
@@ -92,13 +90,37 @@ namespace SlidingPuzzle
 
             }
         }
-        private void GameEngine(object sender, EventArgs e)
+
+        private void TouchePresser(object sender, KeyEventArgs e)
         {
-            foreach (Button bout in boutons)
+            if (e.Key == Key.C)
             {
-                bout.Click += Clique;
+                Cheat();
+            }
+
+            if (e.Key == Key.V)
+            {
+                voirImage = !voirImage;
+            }
+
+            if (e.Key == Key.I)
+            {
+                voirImageNouvelleFenetre = !voirImageNouvelleFenetre;
             }
         }
+
+        private void Cheat()
+        {
+            string chaine = "";
+            for(int i = 0;i< valeurGrille.Length;i++)
+            {
+                valeurGrille[i] = i;
+                chaine += valeurGrille[i];
+            }
+            labelDebug.Content = chaine;
+            AffichageGrille();
+        }
+
 
         private void CreationGrille(int taille)
         {
@@ -134,21 +156,23 @@ namespace SlidingPuzzle
 
                 if (bout.Tag == "zero")
                 {
-                    labelDebug.Content = "colonne zero " + colonne + " ligne " + ligne + "numero " + numero;
+                    //labelDebug.Content = "colonne zero " + colonne + " ligne " + ligne + "numero " + numero;
                     if (((c2 == colonne - 1 || c2 == colonne + 1) && (l2 == ligne)) || ((l2 == ligne - 1 || l2 == ligne + 1) && (c2 == colonne)))
                     {
                         temp = valeurGrille[numero];
                         valeurGrille[numero] = valeurGrille[num2];
                         valeurGrille[num2] = temp;
 
+                        Grid.SetRow(ListeImages[valeurGrille[num2]], l2);
+                        Grid.SetColumn(ListeImages[valeurGrille[num2]], c2);
 
                         bout.Tag = "";
-                        bout.Visibility = Visibility.Visible;
-                        boutons[num2].Background = boutonSkin[valeurGrille[num2]];
+                        bout.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 255, 255, 255));
+                        Panel.SetZIndex(bout, 1);
 
                         bouton.Tag = "zero";
-                        bouton.Visibility = Visibility.Hidden;
-                        boutons[numero].Background = boutonSkin[valeurGrille[numero]];
+                        bouton.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 0, 255, 255));
+                        Panel.SetZIndex(bouton, 1);
                     }
                 }
             }
@@ -156,7 +180,8 @@ namespace SlidingPuzzle
 
         private void CreerBoutons(int taille)
         {
-            for (int i = 0; i < taille-1; i++)
+
+            for (int i = 0; i < taille; i++)
             {
                 Button test2 = new Button
                 {
@@ -167,69 +192,57 @@ namespace SlidingPuzzle
 
                 maGrille.Children.Add(test2);
                 boutons[i] = test2;
-                boutonSkin[i] = new ImageBrush();
+                boutons[i].Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 0, 0, 0));
 
-                boutonSkin[i].ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/Triopiqueur/5x5/" + i + ".jpg"));
-                boutons[i].Background = boutonSkin[i];
 
-                /*
-                System.Windows.Controls.Image clipImage = new System.Windows.Controls.Image();
-                //Create & Set source
-                BitmapImage bi = new BitmapImage();
+                BitmapImage bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/oiseaux.png");
+                bitmapImage.EndInit();
 
-                bi.BeginInit();
-                bi.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/oiseaux.png");
-                bi.EndInit();
-                clipImage.Source = bi;
+                System.Windows.Controls.Image croppedImage = new System.Windows.Controls.Image();
+ 
+                // Définir les coordonnées de découpe (x, y, largeur, hauteur)
+                int x = (i % (int)Math.Sqrt(taille)) * (int)(bitmapImage.Width / (int)Math.Sqrt(taille));
+                int y = (i / (int)Math.Sqrt(taille)) * (int)(bitmapImage.Height / (int)Math.Sqrt(taille));
+                int largeur = (int)(bitmapImage.Width / (int)Math.Sqrt(taille));
+                int hauteur = (int)(bitmapImage.Height / (int)Math.Sqrt(taille));
 
-                double posx = i / (int)Math.Sqrt(taille) * (int)(clipImage.ActualWidth / Math.Sqrt(taille));
-                double posy = i % (int)Math.Sqrt(taille) * (clipImage.ActualHeight / Math.Sqrt(taille));
-                double largeur = clipImage.ActualWidth / Math.Sqrt(taille);
-                double hauteur = clipImage.ActualHeight / Math.Sqrt(taille);
+                CroppedBitmap croppedBitmap = new CroppedBitmap(bitmapImage, new Int32Rect(x, y, largeur, hauteur));
+                croppedImage.Source = croppedBitmap;
+               
+                maGrille.Children.Add(croppedImage);
+                croppedImage.Stretch = Stretch.Fill;
 
-                //Clip using a rect 
-                RectangleGeometry clipRect = new RectangleGeometry { Rect = new Rect(posx, posy, largeur, hauteur) };
-                clipImage.Clip = clipRect;
-                */
+                ListeImages[i] = croppedImage;
+                ListeImagesTrier[i] = croppedImage;
+
+                Grid.SetRow(croppedImage, i / (int)Math.Sqrt(taille));
+                Grid.SetColumn(croppedImage, i % (int)Math.Sqrt(taille));
             }
-
-            Button changernom = new Button
-            {
-                Name = "bouton" + (taille-1).ToString()
-            };
-            Grid.SetRow(changernom, (taille - 1) / (int)Math.Sqrt(taille));
-            Grid.SetColumn(changernom, (taille - 1) % (int)Math.Sqrt(taille));
-
-            maGrille.Children.Add(changernom);
-            boutons[(taille - 1)] = changernom;
-            boutonSkin[(taille - 1)] = new ImageBrush();
-
-            boutonSkin[(taille - 1)].ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/Triopiqueur/5x5/" + (taille - 1) + ".jpg"));
-            boutons[(taille - 1)].Background = boutonSkin[(taille - 1)];
-
-            boutons[(taille - 1)].Tag = "zero";
-            boutons[(taille - 1)].Visibility = Visibility.Hidden;
+            boutons[taille-1].Tag = "zero";
+            boutons[taille-1].Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 0, 255, 255));
         }
 
 
 
         private void AffichageGrille()
         {
+            System.Windows.Controls.Image imageTemp;
+
             for (int i = 0; i < grille.Length; i++)
             {
                 if (boutons[i].Tag != "zero")
                 {
-                    boutons[i].Tag = "";
-                    //boutons[i].Content = valeurGrille[i].ToString();
-                    boutons[i].Background = boutonSkin[valeurGrille[i]];
-
+                    boutons[i].Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 255, 255, 255));
+                    Panel.SetZIndex(boutons[i], 1);
+                    Grid.SetRow(ListeImages[i], valeurGrille[i] / (int)Math.Sqrt(taille));
+                    Grid.SetColumn(ListeImages[i], valeurGrille[i] % (int)Math.Sqrt(taille));
                 }
                 else
                 {
-                    boutons[i].Background = boutonSkin[valeurGrille[i]];
-                    //boutons[i].Content = "";
-                    boutons[i].Tag = "zero";
-                    boutons[i].Visibility = Visibility.Hidden;
+                    boutons[i].Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 0, 255, 255));
+                    Panel.SetZIndex(boutons[i], 1);
                 }
             };
         }
@@ -277,7 +290,7 @@ namespace SlidingPuzzle
         }
 
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void BoutonVoirImage(object sender, RoutedEventArgs e)
         {
             Aide image = new Aide();
             image.ShowDialog();
