@@ -8,41 +8,75 @@
     Title="MainWindow"
     Width="600"
     Height="600"
+    MinWidth="300"
+    MinHeight="300"
+    MaxWidth="1000"
+    MaxHeight="1000"
+    KeyDown="TouchePresser"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <DockPanel>
-        <Rectangle
-            Height="50"
-            DockPanel.Dock="Top"
-            Fill="#FF909090" />
-        <Rectangle
-            Width="50"
-            DockPanel.Dock="Right"
-            Fill="#FF909090" />
-        <Rectangle
-            Width="50"
-            DockPanel.Dock="Left"
-            Fill="#FF909090" />
+        <Rectangle Height="30" DockPanel.Dock="Top">
+            <Rectangle.Fill>
+                <LinearGradientBrush>
+                    <GradientStop Color="#FF7F2E00" />
+                    <GradientStop Offset="0.5" Color="#FF2B1400" />
+                    <GradientStop Offset="1" Color="#FF7F2E00" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Rectangle Width="30" DockPanel.Dock="Right">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="#FF7F2E00" />
+                    <GradientStop Offset="1" Color="#FF2B1400" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Rectangle Width="30" DockPanel.Dock="Left">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="#FF7F2E00" />
+                    <GradientStop Offset="1" Color="#FF2B1400" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
         <Label
             x:Name="labelDebug"
-            Height="50"
-            Background="#FF909090"
+            Height="30"
             DockPanel.Dock="Bottom"
             FontSize="12">
-            <Label
+            <Label.Background>
+                <LinearGradientBrush>
+                    <GradientStop Color="#FF2B1400" />
+                    <GradientStop Offset="0.5" Color="#FF7F2E00" />
+                    <GradientStop Offset="1" Color="#FF2B1400" />
+                </LinearGradientBrush>
+            </Label.Background>
+            <Button
+                x:Name="voirImage"
+                Width="100"
+                Height="20"
+                Margin="350,0,0,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Background="#FFB3B3B3"
+                Click="BoutonVoirImage"
+                Content="Voir l'image" />
+        </Label>
+        <Label
                 x:Name="labTemps"
                 Width="188"
                 Content="" />
         </Label>
+
         <Grid x:Name="maGrille" Background="White" KeyDown="maGrille_KeyDown">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="93*"/>
-                <RowDefinition Height="391*"/>
-            </Grid.RowDefinitions>
-            <Button x:Name="home"
-                Width="44"
-                Height="45"
-                Margin="-43,-49,0,0"
+            <Button
+                Width="30"
+                Height="30"
+                Margin="-30,-30,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Click="Button_Click"

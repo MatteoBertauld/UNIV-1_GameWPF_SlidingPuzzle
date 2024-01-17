@@ -46,7 +46,7 @@ namespace SlidingPuzzle
             choixMode = comboBoxMode.SelectedIndex;
             choixVolume = (int)sliderSon.Value;
             this.DialogResult = true;
-        }        
+        }
 
         public int Niveau
         {
