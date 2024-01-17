@@ -34,7 +34,7 @@
                 Width="188"
                 Content="" />
         </Label>
-        <Grid x:Name="maGrille" Background="White">
+        <Grid x:Name="maGrille" Background="White" KeyDown="maGrille_KeyDown">
             <Grid.RowDefinitions>
                 <RowDefinition Height="93*"/>
                 <RowDefinition Height="391*"/>
@@ -51,8 +51,7 @@
                     <ImageBrush ImageSource="/hut.png" />
                 </Button.Background>
             </Button>
-            <Canvas x:Name="canvaVictoire" Margin="-43,-49,-48,-48" Grid.RowSpan="2" Background="Red" Visibility="Hidden" Panel.ZIndex="1"/>
         </Grid>
     </DockPanel>
-    
+
 </Window>

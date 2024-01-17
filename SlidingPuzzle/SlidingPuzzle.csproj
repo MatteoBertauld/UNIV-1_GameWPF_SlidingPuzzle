@@ -10,33 +10,60 @@
   <ItemGroup>
     <None Remove="0.jpg" />
     <None Remove="2.jpg" />
-    <Compile Remove="victoire.xaml.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="back.png" />
-    <None Remove="fond.png" />
     <None Remove="hut.png" />
     <None Remove="Images\fond.png" />
     <None Remove="settings.png" />
+    <None Remove="toucheClavier.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="0.jpg" />
     <Resource Include="2.jpg" />
-    <Page Remove="victoire.xaml" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="back.png" />
-    <Resource Include="fond.png" />
     <Resource Include="hut.png" />
     <Resource Include="Images\close-window.png" />
-    <Resource Include="Images\fond.png" />
+    <Resource Include="Images\fond.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="settings.png" />
+    <Resource Include="toucheClavier.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Images\couleur\0.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\couleur\1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\couleur\2.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\couleur\3.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\couleur\4.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\couleur\5.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\couleur\6.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\couleur\7.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\couleur\8.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Images\ImagePuzzle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -113,6 +140,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Images\Triopiqueur\5x5\9.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="son\musique.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Media;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,7 +26,12 @@ namespace SlidingPuzzle
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ImageBrush fondMenu = new ImageBrush();
+
+        
         private DispatcherTimer temps;
+        private Menu fenetreMenu = new Menu();
+        private string toucheTriche;
         private int compteurTemps =1;
         // booléens pour aller à gauche et à droite
         // crée une nouvelle instance de la classe dispatch timer
@@ -38,30 +44,32 @@ namespace SlidingPuzzle
         int minute;
         string mode;
         int taille = (int)Math.Pow(5,2);
-
+        
 
 
         public MainWindow()
         {
             InitializeComponent();
-           
-            Menu fenetreMenu = new Menu();
+
+            fondMenu.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/fond.png"));
+            maGrille.Background = fondMenu;
+
+            toucheTriche = fenetreMenu.ToucheTriche;
             fenetreMenu.ShowDialog();
             if (fenetreMenu.DialogResult == false)
+            {
                 System.Windows.Application.Current.Shutdown();
+
+            }
+
             else
+            {
+                //mode = fenetreMenu.Mode;
                 difficulte = fenetreMenu.Niveau;
+            }
 
             taille = difficulte;
             InitialiseJeu();
-
-            // configure le Timer et les événements
-            // lie le timer du répartiteur à un événement appelé moteur de jeu gameengine
-            dispatcherTimer.Tick += GameEngine;
-            // rafraissement toutes les 16 milliseconds
-            dispatcherTimer.Interval = TimeSpan.FromMilliseconds(17);
-            // lancement du timer
-            dispatcherTimer.Start();
 
 
             temps = new DispatcherTimer();            //timer
@@ -76,7 +84,6 @@ namespace SlidingPuzzle
             grille = new Label[taille];
             boutons = new Button[taille];
             boutonSkin = new ImageBrush[taille];
-            //mode = fenetreMenu.Mode;
             CreationGrille(taille);
             Generation_doubletableau();
             CreerBoutons(taille);
@@ -91,10 +98,6 @@ namespace SlidingPuzzle
                 minute++;
                 
             }
-        }
-        private void GameEngine(object sender, EventArgs e)
-        {
-            Victoire();
         }
 
         private void CreationGrille(int taille)
@@ -149,6 +152,8 @@ namespace SlidingPuzzle
                     }
                 }
             }
+            Victoire();
+
         }
 
         private void CreerBoutons(int taille)
@@ -167,7 +172,7 @@ namespace SlidingPuzzle
                 maGrille.Children.Add(test2);
                 boutons[i] = test2;
                 boutonSkin[i] = new ImageBrush();
-                boutonSkin[i].ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/couleur/" + i + ".jpg"));
+                boutonSkin[i].ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/Triopiqueur/5x5/" + i + ".jpg"));
                 boutons[i].Background = boutonSkin[i];
 
                 /*
@@ -213,20 +218,22 @@ namespace SlidingPuzzle
 
         private void Victoire()
         {
-            bool testVictoire = true;
+            bool testVictoire = false;
             for (int i = 0; i < grille.Length; i++)
             {
                 if (valeurGrille[i] != i)
                 {
-                    //testVictoire = false;
+                    testVictoire = false;
                 }
             }
-            if (testVictoire) 
+
+            if (testVictoire == true)
             {
-                canvaVictoire.Visibility = Visibility.Visible;
+                Victoire page = new Victoire();
+                page.Show();
             }
         }
-
+        
 
         private void Generation_doubletableau()
         {
@@ -276,5 +283,26 @@ namespace SlidingPuzzle
             Aide image = new Aide();
             image.ShowDialog();
         }
+        private void Triche()
+        {
+            string chaine = "";
+            for (int i = 0; i< valeurGrille.Length; i++)
+            {
+                valeurGrille[i] = i;
+                chaine += valeurGrille[i];
+            }
+            labelDebug.Content= chaine;
+            AffichageGrille();
+        }
+        private void maGrille_KeyDown(object sender, KeyEventArgs e)
+        {
+            /*if (e.Key.ToString() == toucheTriche || e.Key == Key.C)
+                Triche();*/
+            if (e.Key == Key.C)
+            {
+                Triche();
+            }
+        }
+        
     }
 }
