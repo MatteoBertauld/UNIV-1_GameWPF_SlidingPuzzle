@@ -26,7 +26,7 @@ namespace SlidingPuzzle
         private int choixMode;
         private int choixVolume;
         private int niveau;
-        private string toucheTriche;
+        private Key toucheTriche = Key.C;
 
 
         public Menu()
@@ -75,7 +75,7 @@ namespace SlidingPuzzle
         }
 
 
-        public string ToucheTriche
+        public Key ToucheTriche
         {
             get { return toucheTriche; }
         }
@@ -83,7 +83,7 @@ namespace SlidingPuzzle
         private void butTriche_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             butTriche.Content = e.Key.ToString();
-            toucheTriche = (string)butTriche.Content;
+            toucheTriche = e.Key;
         }
 
         private void sliderSon_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

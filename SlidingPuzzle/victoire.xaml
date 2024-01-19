@@ -51,7 +51,7 @@
             FontWeight="Bold"
             Foreground="White" />
         <Button
-            x:Name="boutonJouer"
+            x:Name="boutonRejouer"
             Grid.Column="1"
             Width="135"
             Height="51"
@@ -61,7 +61,7 @@
             Background="#00A06E31"
             BorderBrush="Black"
             Content="REJOUER"
-            FontSize="22" />
+            FontSize="22" Click="boutonRejouer_Click" />
         <Label
             Grid.Column="1"
             Margin="448,627,0,0"

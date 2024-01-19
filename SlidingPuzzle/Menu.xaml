@@ -98,7 +98,6 @@
             VerticalAlignment="Top"
             FontSize="24">
             <ComboBoxItem Content="Une grille" IsSelected="True" />
-            <ComboBoxItem Content="Deux grille" />
             <ComboBoxItem Content="Course contre-la-montre" />
         </ComboBox>
             

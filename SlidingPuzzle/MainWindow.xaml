@@ -54,19 +54,14 @@
                     <GradientStop Offset="1" Color="#FF2B1400" />
                 </LinearGradientBrush>
             </Label.Background>
-            <Button
-                x:Name="butVoirImage"
-                Width="100"
-                Height="20"
-                Margin="350,0,0,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Background="#FFB3B3B3"
-                Click="BoutonVoirImage"
-                Content="Voir l'image" DragOver="butVoirImage_DragOver" />
+            <Label x:Name="labTemps" Content="" Width="135"/>
         </Label>
 
-        <Grid x:Name="maGrille" Background="White" Focusable="True" PreviewKeyDown="maGrille_KeyDown">
+        <Grid
+            x:Name="maGrille"
+            Background="White"
+            Focusable="True"
+            PreviewKeyDown="maGrille_KeyDown">
             <Button
                 Width="30"
                 Height="30"

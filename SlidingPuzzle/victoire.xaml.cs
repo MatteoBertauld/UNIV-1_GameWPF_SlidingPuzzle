@@ -25,5 +25,10 @@ namespace SlidingPuzzle
         {
             InitializeComponent();
         }
+
+        private void boutonRejouer_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

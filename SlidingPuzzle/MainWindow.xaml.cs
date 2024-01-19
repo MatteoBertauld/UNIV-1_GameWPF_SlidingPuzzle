@@ -22,6 +22,7 @@ using System.Windows.Threading;
 using System.Timers;
 using System.Drawing;
 
+
 namespace SlidingPuzzle
 {
     /// <summary>
@@ -31,15 +32,16 @@ namespace SlidingPuzzle
     {
         private ImageBrush fondMenu = new ImageBrush();
 
+        private System.Timers.Timer minuteur;
+        private TimeSpan tempsRestant;
 
         private DispatcherTimer temps; // timer
         private Aide image = new Aide();
         private DispatcherTimer dispatcherTimer = new DispatcherTimer();
         private Defaite pageDefaite = new Defaite();
         private Menu fenetreMenu = new Menu();
-        private string toucheTriche;
+        private Key keyTriche = Key.C;
         private int compteurTemps = 1;
-        // crée une nouvelle instance de la classe dispatch timer
         int[] valeurGrille;
         Label[] grille;
         int difficulte;
@@ -57,8 +59,11 @@ namespace SlidingPuzzle
         {
             //fondMenu.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/fond.png"));
             //maGrille.Background = fondMenu;
+            InitializeComponent();
+            InitialiseJeu();
 
-            toucheTriche = fenetreMenu.ToucheTriche;
+            //keyTriche = fenetreMenu.ToucheTriche;
+            Console.WriteLine(fenetreMenu.ToucheTriche.ToString());
 
             fenetreMenu.ShowDialog();
             if (fenetreMenu.DialogResult == false)
@@ -75,18 +80,14 @@ namespace SlidingPuzzle
 
             if (mode == 0)
             {
-                temps.Interval = TimeSpan.FromSeconds(1); //timer
-                temps.Tick += Timer_Tick;                 //timer
-                temps.Start();
+                //temps.Interval = TimeSpan.FromSeconds(1); //timer
+                //temps.Tick += Timer_Tick;                 //timer
+                //temps.Start();
             }
             else
             {
                 if (difficulte == 0)
                 {
-                    System.Timers.Timer minuteur = new System.Timers.Timer();
-                    minuteur.Elapsed += new ElapsedEventHandler(minuteurFini);
-                    minuteur.Interval = 100000;
-                    minuteur.Enabled = true;
                 }
                 else if (difficulte == 1)
                 {
@@ -96,13 +97,12 @@ namespace SlidingPuzzle
                 {
 
                 }
-                
+
 
 
             }
 
             taille = difficulte;
-            InitialiseJeu();
 
 
             foreach (Button bout in boutons)
@@ -111,11 +111,7 @@ namespace SlidingPuzzle
             }
         }
 
-        private void minuteurFini(object source, ElapsedEventArgs e)
-        {
-            Application.Current.Shutdown();
-            pageDefaite.ShowDialog();
-        }
+
         private void InitialiseJeu()
         {            
             valeurGrille = new int[taille];
@@ -132,7 +128,7 @@ namespace SlidingPuzzle
             
         private void Timer_Tick(object sender, EventArgs e)
         {
-            //labTemps.Content = "Temps : " + minute + "min" + (compteurTemps++) + "s";
+            labTemps.Content = "Temps : " + minute + "min" + (compteurTemps++) + "s";
             if ((double)compteurTemps % 60 == 0)
             {
                 compteurTemps = 0;
@@ -191,6 +187,7 @@ namespace SlidingPuzzle
                     //labelDebug.Content = "colonne zero " + colonne + " ligne " + ligne + "numero " + numero;
                     if (((c2 == colonne - 1 || c2 == colonne + 1) && (l2 == ligne)) || ((l2 == ligne - 1 || l2 == ligne + 1) && (c2 == colonne)))
                     {
+
                         temp = valeurGrille[numero];
                         valeurGrille[numero] = valeurGrille[num2];
                         valeurGrille[num2] = temp;
@@ -340,26 +337,25 @@ namespace SlidingPuzzle
 
         private void BoutonVoirImage(object sender, RoutedEventArgs e)
         {
-            image.ShowDialog();
+            image.Show();
         }
 
         private void maGrille_KeyDown(object sender, KeyEventArgs e)
         {
-                /*if (e.Key.ToString() == toucheTriche || e.Key == Key.C)
-                    Triche();*/
-                if (e.Key == Key.C)
-                {
-                    Triche();
-                }
-                if (e.Key == Key.V)
-                {
-                    voirImage = !voirImage; 
-                }
+            Console.WriteLine(keyTriche.ToString());
+            if (e.Key == fenetreMenu.ToucheTriche)
+            {
+                Triche();  
+            }
+            if (e.Key == Key.V)
+            {
+                voirImage = !voirImage; 
+            }
 
-                if (e.Key == Key.I)
-                {
-                    voirImageNouvelleFenetre = !voirImageNouvelleFenetre;
-                }
+            if (e.Key == Key.I)
+            {
+                voirImageNouvelleFenetre = !voirImageNouvelleFenetre;
+            }
         }
 
         private void butVoirImage_DragOver(object sender, DragEventArgs e)
