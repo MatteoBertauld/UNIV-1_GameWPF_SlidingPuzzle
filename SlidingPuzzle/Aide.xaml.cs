@@ -22,6 +22,10 @@ namespace SlidingPuzzle
         public Aide()
         {
             InitializeComponent();
+            this.SizeToContent = SizeToContent.WidthAndHeight;
+            ImageBrush canvaFond = new ImageBrush();
+            canvaFond.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/oiseaux.png"));
+            rectAide.Fill = canvaFond;
         }
     }
 }

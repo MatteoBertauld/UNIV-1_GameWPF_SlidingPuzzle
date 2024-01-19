@@ -1,30 +1,90 @@
-﻿<Window x:Class="SlidingPuzzle.Menu"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SlidingPuzzle"
-        mc:Ignorable="d"
-        Title="VICTOIRE" Height="700" Width="1200" WindowStartupLocation="CenterScreen">
+﻿<Window
+    x:Class="SlidingPuzzle.Victoire"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SlidingPuzzle"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="VICTOIRE"
+    Width="1200"
+    Height="700"
+    WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="32*"/>
-            <ColumnDefinition Width="1169*"/>
+            <ColumnDefinition Width="32*" />
+            <ColumnDefinition Width="1169*" />
         </Grid.ColumnDefinitions>
 
-        <ComboBox x:Name="comboBoxChoix" HorizontalAlignment="Left" VerticalAlignment="Top" Width="212" Margin="462,366,0,0" Height="38" FontSize="24" Grid.Column="1">
+        <ComboBox
+            x:Name="comboBoxChoix"
+            Grid.Column="1"
+            Width="212"
+            Height="38"
+            Margin="462,366,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            FontSize="24">
             <ComboBoxItem Content="Facile" IsSelected="True" />
-            <ComboBoxItem Content="Moyen"/>
-            <ComboBoxItem Content="Difficile"/>
+            <ComboBoxItem Content="Moyen" />
+            <ComboBoxItem Content="Difficile" />
         </ComboBox>
-        <Label x:Name="labDifficulte" Content="Difficulté" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Foreground="White" FontSize="24" Margin="512,320,0,0" Grid.Column="1"/>
-        <Label Content="VICTOIRE !!" VerticalAlignment="Top" FontSize="72" FontWeight="Bold" HorizontalAlignment="Left" Width="396" Height="129" Background="#0269481F" Foreground="White" Margin="370,33,0,0" Grid.Column="1"/>
-        <Button x:Name="boutonJouer" Content="REJOUER" HorizontalAlignment="Left" Margin="424,424,0,0" VerticalAlignment="Top" Click="Button_Click" Width="135" Background="#00A06E31" BorderBrush="Black" FontSize="22" Height="51" Grid.Column="1"/>
-        <Label Content="BERTAULD Mattéo | ALLEON Victor" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="448,627,0,0" FontWeight="Bold" FontSize="14" Grid.Column="1"/>
-        <Button x:Name="boutonQuitter" Content="QUITTER" HorizontalAlignment="Left" Margin="582,423,0,0" VerticalAlignment="Top" Height="51" Width="135" Click="quitter_Click" Grid.Column="1" Background="#00DDDDDD" BorderBrush="Black" FontSize="22"/>
+        <Label
+            x:Name="labDifficulte"
+            Grid.Column="1"
+            Margin="512,320,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Difficulté"
+            FontSize="24"
+            FontWeight="Bold"
+            Foreground="White" />
+        <Label
+            Grid.Column="1"
+            Width="396"
+            Height="129"
+            Margin="370,33,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Background="#0269481F"
+            Content="VICTOIRE !!"
+            FontSize="72"
+            FontWeight="Bold"
+            Foreground="White" />
+        <Button
+            x:Name="boutonJouer"
+            Grid.Column="1"
+            Width="135"
+            Height="51"
+            Margin="424,424,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Background="#00A06E31"
+            BorderBrush="Black"
+            Content="REJOUER"
+            FontSize="22" />
+        <Label
+            Grid.Column="1"
+            Margin="448,627,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="BERTAULD Mattéo | ALLEON Victor"
+            FontSize="14"
+            FontWeight="Bold" />
+        <Button
+            x:Name="boutonQuitter"
+            Grid.Column="1"
+            Width="135"
+            Height="51"
+            Margin="582,423,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Background="#00DDDDDD"
+            BorderBrush="Black"
+            Content="QUITTER"
+            FontSize="22" />
 
         <Grid.Background>
-            <ImageBrush ImageSource="/fond.png"/>
+            <ImageBrush ImageSource="/fond.png" />
         </Grid.Background>
 
     </Grid>

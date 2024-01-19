@@ -17,29 +17,13 @@ namespace SlidingPuzzle
     /// <summary>
     /// Logique d'interaction pour Menu.xaml
     /// </summary>
-    public partial class Menu : Window
+    public partial class Victoire : Window
     {
         private int choix;
         private int niveau;
-        public Menu()
+        public Victoire()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            choix = comboBoxChoix.SelectedIndex;
-            this.DialogResult = true;
-        }        
-
-        public int Niveau
-        {
-            get { if (choix == 0) niveau = 9; else if (choix == 1) niveau = 16; else niveau = 25;  return niveau; }
-        }
-
-        private void quitter_Click(object sender, RoutedEventArgs e)
-        {
-            this.DialogResult = false;
         }
     }
 }

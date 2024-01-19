@@ -7,6 +7,6 @@
         mc:Ignorable="d"
         Title="Aide" Height="450" Width="800">
     <Grid>
-        
+        <Rectangle x:Name="rectAide" Height="434" Stroke="Black" Width="800"/>
     </Grid>
 </Window>
