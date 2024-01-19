@@ -12,7 +12,6 @@
     MinHeight="300"
     MaxWidth="1000"
     MaxHeight="1000"
-    KeyDown="TouchePresser"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <DockPanel>
@@ -56,7 +55,7 @@
                 </LinearGradientBrush>
             </Label.Background>
             <Button
-                x:Name="voirImage"
+                x:Name="butVoirImage"
                 Width="100"
                 Height="20"
                 Margin="350,0,0,0"
@@ -64,15 +63,10 @@
                 VerticalAlignment="Center"
                 Background="#FFB3B3B3"
                 Click="BoutonVoirImage"
-                Content="Voir l'image" />
-        </Label>
-        <Label
-                x:Name="labTemps"
-                Width="188"
-                Content="" />
+                Content="Voir l'image" DragOver="butVoirImage_DragOver" />
         </Label>
 
-        <Grid x:Name="maGrille" Background="White" KeyDown="maGrille_KeyDown">
+        <Grid x:Name="maGrille" Background="White" Focusable="True" PreviewKeyDown="maGrille_KeyDown">
             <Button
                 Width="30"
                 Height="30"
@@ -87,5 +81,4 @@
             </Button>
         </Grid>
     </DockPanel>
-
 </Window>

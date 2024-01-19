@@ -26,7 +26,6 @@ namespace SlidingPuzzle
         private int choixMode;
         private int choixVolume;
         private int niveau;
-        private int volume;
         private string toucheTriche;
 
 
@@ -36,7 +35,7 @@ namespace SlidingPuzzle
             musiqueFond.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory + "son/musique.wav"));
             musiqueFond.Play();
             musiqueFond.MediaEnded += (sender, e) => musiqueFond.Position = TimeSpan.Zero;
-            musiqueFond.Volume = choixVolume;
+            musiqueFond.Volume = choixVolume/100;
 
         }
 
@@ -56,10 +55,6 @@ namespace SlidingPuzzle
         public int Mode
         {
             get { return choixMode; }
-        }
-        public int Volume
-        {
-            get { return choixVolume; }
         }
 
 
@@ -90,5 +85,11 @@ namespace SlidingPuzzle
             butTriche.Content = e.Key.ToString();
             toucheTriche = (string)butTriche.Content;
         }
+
+        private void sliderSon_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            sliderSon.Value = choixVolume;
+        }
+
     }
 }

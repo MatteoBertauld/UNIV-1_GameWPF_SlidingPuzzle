@@ -10,22 +10,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace SlidingPuzzle
 {
     /// <summary>
-    /// Logique d'interaction pour Aide.xaml
+    /// Logique d'interaction pour Defaite.xaml
     /// </summary>
-    public partial class Aide : Window
+    public partial class Defaite : Window
     {
-        public Aide()
+        public Defaite()
         {
             InitializeComponent();
-            this.SizeToContent = SizeToContent.WidthAndHeight;
-            ImageBrush canvaFond = new ImageBrush();
-            canvaFond.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/oiseaux.png"));
-            rectAide.Fill = canvaFond;
         }
     }
 }
+

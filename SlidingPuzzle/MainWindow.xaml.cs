@@ -19,7 +19,7 @@ using System.Windows.Media.Media3D;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-using static System.Net.Mime.MediaTypeNames;
+using System.Timers;
 using System.Drawing;
 
 namespace SlidingPuzzle
@@ -32,104 +32,116 @@ namespace SlidingPuzzle
         private ImageBrush fondMenu = new ImageBrush();
 
 
-        private DispatcherTimer temps;
+        private DispatcherTimer temps; // timer
+        private Aide image = new Aide();
+        private DispatcherTimer dispatcherTimer = new DispatcherTimer();
+        private Defaite pageDefaite = new Defaite();
         private Menu fenetreMenu = new Menu();
         private string toucheTriche;
         private int compteurTemps = 1;
         // crée une nouvelle instance de la classe dispatch timer
-        private DispatcherTimer dispatcherTimer = new DispatcherTimer();
         int[] valeurGrille;
         Label[] grille;
         int difficulte;
         Button[] boutons;
-        //ImageBrush[] boutonSkin;
         System.Windows.Controls.Image[] ListeImages;
         System.Windows.Controls.Image[] ListeImagesTrier;
         int minute;
-        string mode;
-        int taille = (int)Math.Pow(5, 2);
+        int mode;
         int taille = (int)Math.Pow(5, 2);
 
         bool voirImage = false;
         bool voirImageNouvelleFenetre = false;
-        bool voirImageNouvelleFenetre = false;
 
         public MainWindow()
         {
-            fondMenu.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/fond.png"));
-            maGrille.Background = fondMenu;
+            //fondMenu.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/fond.png"));
+            //maGrille.Background = fondMenu;
 
             toucheTriche = fenetreMenu.ToucheTriche;
 
-            Menu fenetreMenu = new Menu();
-            Menu fenetreMenu = new Menu();
             fenetreMenu.ShowDialog();
             if (fenetreMenu.DialogResult == false)
             {
-                System.Windows.Application.Current.Shutdown();
-
+                Application.Current.Shutdown();
             }
-
             else
             {
-                //mode = fenetreMenu.Mode;
+                mode = fenetreMenu.Mode;
                 difficulte = fenetreMenu.Niveau;
+            }
+
+
+
+            if (mode == 0)
+            {
+                temps.Interval = TimeSpan.FromSeconds(1); //timer
+                temps.Tick += Timer_Tick;                 //timer
+                temps.Start();
+            }
+            else
+            {
+                if (difficulte == 0)
+                {
+                    System.Timers.Timer minuteur = new System.Timers.Timer();
+                    minuteur.Elapsed += new ElapsedEventHandler(minuteurFini);
+                    minuteur.Interval = 100000;
+                    minuteur.Enabled = true;
+                }
+                else if (difficulte == 1)
+                {
+
+                }
+                else
+                {
+
+                }
+                
+
+
             }
 
             taille = difficulte;
             InitialiseJeu();
-            temps = new DispatcherTimer();            //timer
-            temps.Interval = TimeSpan.FromSeconds(1); //timer
-            temps.Tick += Timer_Tick;                 //timer
-            temps.Start();                            //timer
+
+
             foreach (Button bout in boutons)
             {
                 bout.Click += Clique;
             }
         }
+
+        private void minuteurFini(object source, ElapsedEventArgs e)
+        {
+            Application.Current.Shutdown();
+            pageDefaite.ShowDialog();
+        }
+        private void InitialiseJeu()
+        {            
+            valeurGrille = new int[taille];
+            grille = new Label[taille];
+            boutons = new Button[taille];
+            ListeImages = new System.Windows.Controls.Image[taille];
             ListeImagesTrier = new System.Windows.Controls.Image[taille];
             //mode = fenetreMenu.Mode;
             CreationGrille(taille);
             Generation_doubletableau();
             CreerBoutons(taille);
             AffichageGrille();
-            //boutonSkin = new ImageBrush[taille];
-            ListeImages = new System.Windows.Controls.Image[taille];
-            ListeImagesTrier = new System.Windows.Controls.Image[taille];
-            //mode = fenetreMenu.Mode;
+        }
+            
+        private void Timer_Tick(object sender, EventArgs e)
         {
-            labelDebug.Content = "Temps : " + minute + "min" + (compteurTemps++) + "s";
+            //labTemps.Content = "Temps : " + minute + "min" + (compteurTemps++) + "s";
             if ((double)compteurTemps % 60 == 0)
             {
                 compteurTemps = 0;
                 minute++;
-
-            labTemps.Content = "Temps : " + minute + "min" + (compteurTemps++) + "s";
-            if ((double)compteurTemps % 60 == 0)
-
-        private void TouchePresser(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.C)
-            {
-                Cheat();
-
-        private void TouchePresser(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.C)
-            {
-                Cheat();
-            }
-            {
-                voirImage = !voirImage;
-            }
-
-            if (e.Key == Key.I)
-            {
-                voirImageNouvelleFenetre = !voirImageNouvelleFenetre;
             }
         }
+            
 
-        private void Cheat()
+        private void Triche()
         {
             string chaine = "";
             for(int i = 0;i< valeurGrille.Length;i++)
@@ -202,7 +214,6 @@ namespace SlidingPuzzle
 
         private void CreerBoutons(int taille)
         {
-
             for (int i = 0; i < taille; i++)
             {
                 Button test2 = new Button
@@ -215,59 +226,31 @@ namespace SlidingPuzzle
                 maGrille.Children.Add(test2);
                 boutons[i] = test2;
                 boutons[i].Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 0, 0, 0));
-
-                boutons[i].Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 0, 0, 0));
-
-
                 BitmapImage bitmapImage = new BitmapImage();
                 bitmapImage.BeginInit();
                 bitmapImage.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/oiseaux.png");
                 bitmapImage.EndInit();
 
                 System.Windows.Controls.Image croppedImage = new System.Windows.Controls.Image();
- 
+
                 // Définir les coordonnées de découpe (x, y, largeur, hauteur)
                 int x = (i % (int)Math.Sqrt(taille)) * (int)(bitmapImage.Width / (int)Math.Sqrt(taille));
                 int y = (i / (int)Math.Sqrt(taille)) * (int)(bitmapImage.Height / (int)Math.Sqrt(taille));
                 int largeur = (int)(bitmapImage.Width / (int)Math.Sqrt(taille));
                 int hauteur = (int)(bitmapImage.Height / (int)Math.Sqrt(taille));
-
                 CroppedBitmap croppedBitmap = new CroppedBitmap(bitmapImage, new Int32Rect(x, y, largeur, hauteur));
                 croppedImage.Source = croppedBitmap;
-               
+
                 maGrille.Children.Add(croppedImage);
                 croppedImage.Stretch = Stretch.Fill;
-
-                ListeImages[i] = croppedImage;
-                ListeImagesTrier[i] = croppedImage;
-
-                Grid.SetRow(croppedImage, i / (int)Math.Sqrt(taille));
-                Grid.SetColumn(croppedImage, i % (int)Math.Sqrt(taille));
-                bitmapImage.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/oiseaux.png");
-                bitmapImage.EndInit();
-
-                System.Windows.Controls.Image croppedImage = new System.Windows.Controls.Image();
- 
-                // Définir les coordonnées de découpe (x, y, largeur, hauteur)
-                int x = (i % (int)Math.Sqrt(taille)) * (int)(bitmapImage.Width / (int)Math.Sqrt(taille));
-                int y = (i / (int)Math.Sqrt(taille)) * (int)(bitmapImage.Height / (int)Math.Sqrt(taille));
-                int largeur = (int)(bitmapImage.Width / (int)Math.Sqrt(taille));
-                int hauteur = (int)(bitmapImage.Height / (int)Math.Sqrt(taille));
-
-                CroppedBitmap croppedBitmap = new CroppedBitmap(bitmapImage, new Int32Rect(x, y, largeur, hauteur));
-                croppedImage.Source = croppedBitmap;
-               
-                maGrille.Children.Add(croppedImage);
-                croppedImage.Stretch = Stretch.Fill;
-
                 ListeImages[i] = croppedImage;
                 ListeImagesTrier[i] = croppedImage;
 
                 Grid.SetRow(croppedImage, i / (int)Math.Sqrt(taille));
                 Grid.SetColumn(croppedImage, i % (int)Math.Sqrt(taille));
             }
-            boutons[taille-1].Tag = "zero";
-            boutons[taille-1].Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 0, 255, 255));
+            boutons[taille - 1].Tag = "zero";
+            boutons[taille - 1].Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 0, 255, 255));
         }
 
 
@@ -290,7 +273,7 @@ namespace SlidingPuzzle
                     boutons[i].Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 0, 255, 255));
                     Panel.SetZIndex(boutons[i], 1);
                 }
-            };
+            }
         }
 
         private void Victoire()
@@ -336,7 +319,7 @@ namespace SlidingPuzzle
             }
         }
 
-        public void GenererNouvelleGrille()
+        private void GenererNouvelleGrille()
         {
             Generation_doubletableau();
             AffichageGrille();
@@ -357,29 +340,31 @@ namespace SlidingPuzzle
 
         private void BoutonVoirImage(object sender, RoutedEventArgs e)
         {
-            Aide image = new Aide();
             image.ShowDialog();
         }
-        private void Triche()
-        {
-            string chaine = "";
-            for (int i = 0; i< valeurGrille.Length; i++)
-            {
-                valeurGrille[i] = i;
-                chaine += valeurGrille[i];
-            }
-            labelDebug.Content= chaine;
-            AffichageGrille();
-        }
+
         private void maGrille_KeyDown(object sender, KeyEventArgs e)
         {
-            /*if (e.Key.ToString() == toucheTriche || e.Key == Key.C)
-                Triche();*/
-            if (e.Key == Key.C)
-            {
-                Triche();
-            }
+                /*if (e.Key.ToString() == toucheTriche || e.Key == Key.C)
+                    Triche();*/
+                if (e.Key == Key.C)
+                {
+                    Triche();
+                }
+                if (e.Key == Key.V)
+                {
+                    voirImage = !voirImage; 
+                }
+
+                if (e.Key == Key.I)
+                {
+                    voirImageNouvelleFenetre = !voirImageNouvelleFenetre;
+                }
         }
-        
+
+        private void butVoirImage_DragOver(object sender, DragEventArgs e)
+        {
+            image.Show();
+        }
     }
 }
