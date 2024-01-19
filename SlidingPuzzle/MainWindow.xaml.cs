@@ -38,7 +38,6 @@ namespace SlidingPuzzle
         Button[] boutons;
         //ImageBrush[] boutonSkin;
         System.Windows.Controls.Image[] ListeImages;
-        System.Windows.Controls.Image[] ListeImagesTrier;
         int minute;
         string mode;
         int taille = (int)Math.Pow(5, 2);
@@ -73,7 +72,6 @@ namespace SlidingPuzzle
             boutons = new Button[taille];
             //boutonSkin = new ImageBrush[taille];
             ListeImages = new System.Windows.Controls.Image[taille];
-            ListeImagesTrier = new System.Windows.Controls.Image[taille];
             //mode = fenetreMenu.Mode;
             CreationGrille(taille);
             Generation_doubletableau();
@@ -146,53 +144,71 @@ namespace SlidingPuzzle
             int colonne = Grid.GetColumn(bouton);
             int ligne = Grid.GetRow(bouton);
             int numero = ligne * (int)Math.Sqrt(taille) + colonne;
-            //labelDebug.Content = "colonne bouton " + colonne + " ligne " + ligne + "numero " + numero;
+            Console.WriteLine("Bouton cliquer , colonne bouton " + colonne + " ligne " + ligne + "numero " + numero);
 
             foreach (Button bout in boutons)
             {
                 int c2 = Grid.GetColumn(bout);
                 int l2 = Grid.GetRow(bout);
                 int num2 = l2 * (int)Math.Sqrt(taille) + c2;
+                Console.WriteLine("colonne bouton " + c2 + " ligne " + l2 + "numero " + num2);
 
                 if (bout.Tag == "zero")
                 {
+                    Console.WriteLine("zero");
                     //labelDebug.Content = "colonne zero " + colonne + " ligne " + ligne + "numero " + numero;
                     if (((c2 == colonne - 1 || c2 == colonne + 1) && (l2 == ligne)) || ((l2 == ligne - 1 || l2 == ligne + 1) && (c2 == colonne)))
                     {
+                        foreach (int i in valeurGrille) { Console.Write(i); }
+
                         temp = valeurGrille[numero];
                         valeurGrille[numero] = valeurGrille[num2];
                         valeurGrille[num2] = temp;
 
-                        Grid.SetRow(ListeImages[valeurGrille[num2]], l2);
-                        Grid.SetColumn(ListeImages[valeurGrille[num2]], c2);
+                        Console.Write("\n");
+                        foreach (int i in valeurGrille) { Console.Write(i); }
 
-                        bout.Tag = "";
+                        Console.Write("numero : " + valeurGrille[numero]);
+                        Console.Write(" / num : " + valeurGrille[num2]);
+
+                        //Grid.SetRow(ListeImages[valeurGrille[num2]], l2);
+                        //Grid.SetColumn(ListeImages[valeurGrille[num2]], c2);
+
+                        //Grid.SetRow(ListeImages[valeurGrille[numero]], ligne);
+                        //Grid.SetColumn(ListeImages[valeurGrille[numero]], colonne);
+
+                        bout.Tag = null;
+                        bouton.Tag = "zero";
+                        /*
+                        
                         bout.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 255, 255, 255));
                         Panel.SetZIndex(bout, 1);
 
                         bouton.Tag = "zero";
                         bouton.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 0, 255, 255));
                         Panel.SetZIndex(bouton, 1);
+                        */
                     }
                 }
             }
+            AffichageGrille();
         }
 
         private void CreerBoutons(int taille)
         {
-
             for (int i = 0; i < taille; i++)
             {
                 Button test2 = new Button
                 {
                     Name = "bouton" + i.ToString(),
+                    Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 0, 0, 0)),
                 };
                 Grid.SetRow(test2, i / (int)Math.Sqrt(taille));
                 Grid.SetColumn(test2, i % (int)Math.Sqrt(taille));
 
                 maGrille.Children.Add(test2);
                 boutons[i] = test2;
-                boutons[i].Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 0, 0, 0));
+                Panel.SetZIndex(boutons[i], 1);
 
 
                 BitmapImage bitmapImage = new BitmapImage();
@@ -210,39 +226,34 @@ namespace SlidingPuzzle
 
                 CroppedBitmap croppedBitmap = new CroppedBitmap(bitmapImage, new Int32Rect(x, y, largeur, hauteur));
                 croppedImage.Source = croppedBitmap;
-               
-                maGrille.Children.Add(croppedImage);
+
                 croppedImage.Stretch = Stretch.Fill;
 
+                maGrille.Children.Add(croppedImage);
                 ListeImages[i] = croppedImage;
-                ListeImagesTrier[i] = croppedImage;
-
-                Grid.SetRow(croppedImage, i / (int)Math.Sqrt(taille));
-                Grid.SetColumn(croppedImage, i % (int)Math.Sqrt(taille));
             }
             boutons[taille-1].Tag = "zero";
-            boutons[taille-1].Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 0, 255, 255));
+            AffichageGrille();
         }
 
 
 
         private void AffichageGrille()
         {
-            System.Windows.Controls.Image imageTemp;
-
+            foreach (int p in valeurGrille) { Console.Write(p); }
             for (int i = 0; i < grille.Length; i++)
             {
-                if (boutons[i].Tag != "zero")
+                //Panel.SetZIndex(boutons[i], 1);
+                Grid.SetRow(ListeImages[i], valeurGrille[i] / (int)Math.Sqrt(taille));
+                Grid.SetColumn(ListeImages[i], valeurGrille[i] % (int)Math.Sqrt(taille));
+
+                if (boutons[i].Tag == "zero")
                 {
-                    boutons[i].Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 255, 255, 255));
-                    Panel.SetZIndex(boutons[i], 1);
-                    Grid.SetRow(ListeImages[i], valeurGrille[i] / (int)Math.Sqrt(taille));
-                    Grid.SetColumn(ListeImages[i], valeurGrille[i] % (int)Math.Sqrt(taille));
+                    boutons[i].Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 0, 255, 255)); 
                 }
                 else
                 {
-                    boutons[i].Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 0, 255, 255));
-                    Panel.SetZIndex(boutons[i], 1);
+                    boutons[i].Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 0, 0, 0));
                 }
             };
         }
