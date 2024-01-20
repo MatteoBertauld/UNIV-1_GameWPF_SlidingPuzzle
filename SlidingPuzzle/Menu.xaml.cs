@@ -37,6 +37,29 @@ namespace SlidingPuzzle
             musiqueFond.MediaEnded += (sender, e) => musiqueFond.Position = TimeSpan.Zero;
             musiqueFond.Volume = choixVolume / 100;
 
+            ImageBrush SkinBoutonQuitter = new ImageBrush();
+            SkinBoutonQuitter.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/close-window.png"));
+            butQuitter.Background = SkinBoutonQuitter;
+
+            ImageBrush SkinboutontParametre = new ImageBrush();
+            SkinboutontParametre.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/settings.png"));
+            butParam.Background = SkinboutontParametre;
+
+            ImageBrush Skinfond = new ImageBrush();
+            Skinfond.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/fond.png"));
+            canvaParam.Background = Skinfond;
+            MenuGrille.Background = Skinfond;
+
+            ImageBrush SkinbouttonRetour = new ImageBrush();
+            SkinbouttonRetour.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/back.png"));
+            buttRetour.Background = SkinbouttonRetour;
+            
+
+            ImageBrush SkinbouttonTriche = new ImageBrush();
+            SkinbouttonTriche.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/toucheClavier.png"));
+            butTriche.Background = SkinbouttonTriche;
+
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

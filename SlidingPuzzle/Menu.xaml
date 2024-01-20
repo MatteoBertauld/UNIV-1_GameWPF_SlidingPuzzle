@@ -10,7 +10,7 @@
     Height="700"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <Grid>
+    <Grid x:Name="MenuGrille">
 
         <ComboBox
             x:Name="comboBoxChoix"
@@ -73,7 +73,7 @@
             Content="BERTAULD Mattéo | ALLEON Victor"
             FontSize="14"
             FontWeight="Bold" />
-            
+
         <Button
             x:Name="butQuitter"
             Width="51"
@@ -84,9 +84,6 @@
             BorderBrush="#00707070"
             Click="quitter_Click"
             Content="" >
-                <Button.Background>
-                    <ImageBrush ImageSource="Images/close-window.png" />
-                </Button.Background>
         </Button>
             
         <ComboBox
@@ -111,7 +108,7 @@
             FontSize="24"
             FontWeight="Bold"
             Foreground="White" />
-            
+
         <Button
             x:Name="butParam"
             Width="48"
@@ -122,16 +119,9 @@
             BorderBrush="#00707070"
             Click="Button_Click_1"
             Content="">
-            <Button.Background>
-                <ImageBrush ImageSource="/settings.png" />
-            </Button.Background>
         </Button>
 
         <Canvas x:Name="canvaParam" Visibility="Visible">
-            <Canvas.Background>
-                <ImageBrush ImageSource="/fond.png" />
-            </Canvas.Background>
-
             <Label
                 Canvas.Left="436"
                 Canvas.Top="55"
@@ -143,7 +133,7 @@
                 FontSize="48"
                 FontWeight="Bold"
                 Foreground="White" />
-            
+
             <Button
                 x:Name="buttRetour"
                 Canvas.Left="26"
@@ -153,31 +143,21 @@
                 BorderBrush="#00707070"
                 Click="Button_Click_2"
                 Content="">
-                <Button.Background>
-                    <ImageBrush ImageSource="/back.png" />
-                </Button.Background>
             </Button>
-            
+
             <Slider x:Name="sliderSon" Canvas.Left="72" Canvas.Top="200" Width="400" Height="20" HorizontalAlignment="Center" VerticalAlignment="Top" Minimum="0" Maximum="100" ValueChanged="sliderSon_ValueChanged"/>
-            
+
             <Label x:Name="labVolume" Content="Volume :&#xD;&#xA;" Canvas.Left="72" Canvas.Top="150" Height="42" Width="126" FontSize="24" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            
+
             <Label x:Name="labParamTouche" Content="Gestion des touches" Canvas.Left="484" Canvas.Top="262" HorizontalAlignment="Center" VerticalAlignment="Top" Width="242" Background="Transparent" Foreground="White" FontSize="24" FontWeight="Bold"/>
-            
+
             <Label Content="Finir le niveau :" Canvas.Left="72" Canvas.Top="324" FontSize="24" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Width="175"/>
 
-                <Button x:Name="butTriche" Content="C" Canvas.Left="72" Canvas.Top="384" Height="70" Width="70" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="28" BorderBrush="#00707070" PreviewKeyDown="butTriche_PreviewKeyDown">
-                    <Button.Background>
-                        <ImageBrush ImageSource="/toucheClavier.png"/>
-                    </Button.Background>
-                </Button>
-            
-                <Label x:Name="labReglageSon" Content="" Canvas.Left="245" Canvas.Top="225" HorizontalAlignment="Left" Height="26" VerticalAlignment="Center" Width="54"/>
-        </Canvas>
+            <Button x:Name="butTriche" Content="C" Canvas.Left="72" Canvas.Top="384" Height="70" Width="70" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="28" BorderBrush="#00707070" PreviewKeyDown="butTriche_PreviewKeyDown">
+            </Button>
 
-        <Grid.Background>
-            <ImageBrush ImageSource="/fond.png" />
-        </Grid.Background>
+            <Label x:Name="labReglageSon" Content="" Canvas.Left="245" Canvas.Top="225" HorizontalAlignment="Left" Height="26" VerticalAlignment="Center" Width="54"/>
+        </Canvas>
 
     </Grid>
 </Window>

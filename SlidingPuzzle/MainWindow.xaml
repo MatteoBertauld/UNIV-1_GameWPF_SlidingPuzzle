@@ -62,7 +62,7 @@
             Background="White"
             Focusable="True"
             PreviewKeyDown="maGrille_KeyDown">
-            <Button
+            <Button x:Name="Maison"
                 Width="30"
                 Height="30"
                 Margin="-30,-30,0,0"
@@ -70,9 +70,6 @@
                 VerticalAlignment="Top"
                 Click="Button_Click"
                 Content="">
-                <Button.Background>
-                    <ImageBrush ImageSource="/hut.png" />
-                </Button.Background>
             </Button>
         </Grid>
     </DockPanel>
