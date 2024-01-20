@@ -148,31 +148,16 @@ namespace SlidingPuzzle
             }
         }
 
-        private void RemoveButton(Button buttonToRemove)
-        {
-            if (maGrille.Children.Contains(buttonToRemove))
-            {
-                DebugNombreBoutonSupprimer += 1;
-                maGrille.Children.Remove(buttonToRemove);
-            }
-        }
-
-        private void RemoveImage(Image imageToRemove)
-        {
-            if (maGrille.Children.Contains(imageToRemove))
-            {
-                DebugNombreImageSupprimer += 1;
-                maGrille.Children.Remove(imageToRemove);
-            }
-        }
-
-
         private void SupprimeObjectDeLaGrille()
         {
             DebugNombreBoutonSupprimer = 0;
             foreach (Button bout in boutons)
             {
-                RemoveButton(bout);
+                if (maGrille.Children.Contains(bout))
+                {
+                    DebugNombreBoutonSupprimer += 1;
+                    maGrille.Children.Remove(bout);
+                }
             }
             Console.WriteLine("Nombre de bouton supprimer de la grille " + DebugNombreBoutonSupprimer);
 
@@ -180,8 +165,12 @@ namespace SlidingPuzzle
             DebugNombreImageSupprimer = 0;
             foreach (Image img in ListeImages)
             {
-                RemoveImage(img);
-                
+                if (maGrille.Children.Contains(img))
+                {
+                    DebugNombreBoutonSupprimer += 1;
+                    maGrille.Children.Remove(img);
+                }
+
             }
             Console.WriteLine("Nombre d'image supprimer de la grille " + DebugNombreImageSupprimer);
         }
