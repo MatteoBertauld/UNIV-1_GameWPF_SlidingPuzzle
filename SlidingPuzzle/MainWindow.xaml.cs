@@ -22,6 +22,7 @@ using System.Windows.Threading;
 using System.Timers;
 using System.Drawing;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading;
 
 
 namespace SlidingPuzzle
@@ -55,7 +56,7 @@ namespace SlidingPuzzle
         int DebugNombreImage;
         int DebugNombreBoutonSupprimer;
         int DebugNombreImageSupprimer;
-
+        int TestPrecedent = 0;
         bool voirImage = false;
         bool voirImageNouvelleFenetre = false;
 
@@ -183,6 +184,7 @@ namespace SlidingPuzzle
             Generation_doubletableau();
             CreerBoutons();
             ListButtonsInActiveWindow();
+            MelangerGrille();
             AffichageGrille();
 
             foreach (Button bout in boutons)
@@ -207,6 +209,7 @@ namespace SlidingPuzzle
             string chaine = "";
             for(int i = 0;i< valeurGrille.Length;i++)
             {
+                boutons[i].Tag = null;
                 valeurGrille[i] = i;
                 chaine += valeurGrille[i];
             }
@@ -255,14 +258,22 @@ namespace SlidingPuzzle
 
         private void Clique(object sender, EventArgs e)
         {
+
             Button bouton = sender as Button;
 
             int temp;
             int colonne = Grid.GetColumn(bouton);
             int ligne = Grid.GetRow(bouton);
             int numero = ligne * (int)Math.Sqrt(taille) + colonne;
+
+
+            //Console.WriteLine("Numero : " + numero + " precedent : " + TestPrecedent);
+            //Console.WriteLine("coup choisit : " + coupPossible(numero, TestPrecedent));
+            //TestPrecedent = numero;
+
             Console.WriteLine("Bouton cliquer : colonne " + colonne + " ligne " + ligne + "numero " + numero + " ValeurGrille " + valeurGrille[numero]);
 
+            
             foreach (Button bout in boutons)
             {
                 int c2 = Grid.GetColumn(bout);
@@ -342,7 +353,6 @@ namespace SlidingPuzzle
         }
 
 
-
         private void AffichageGrille()
         {
             for (int i = 0; i < taille; i++)
@@ -353,7 +363,7 @@ namespace SlidingPuzzle
 
                 if (boutons[i].Tag == "zero")
                 {
-                    boutons[i].Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 0, 255, 255)); 
+                    boutons[i].Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 255, 255, 255)); 
                 }
                 else
                 {
@@ -364,7 +374,7 @@ namespace SlidingPuzzle
 
         private void Victoire()
         {
-            bool testVictoire = false;
+            bool testVictoire = true;
             for (int i = 0; i < taille; i++)
             {
                 if (valeurGrille[i] != i)
@@ -380,32 +390,95 @@ namespace SlidingPuzzle
             }
         }
         
+        private int coupPossible(int numero,int numeroCoupPrecedent)
+        {
+            int colonne = numero % (int)Math.Sqrt(taille);
+            int ligne = numero / (int)Math.Sqrt(taille);
+
+            List<int> ListeCoupPossible = new List<int>();
+
+            if ( colonne > 0 )
+            {
+                int numCoup = ligne * (int)Math.Sqrt(taille) + (colonne - 1);
+                if (numCoup != numeroCoupPrecedent)
+                {
+                    ListeCoupPossible.Add(numCoup);
+                }
+            }
+            if (ligne > 0)
+            {
+                int numCoup = (ligne - 1) * (int)Math.Sqrt(taille) + colonne;
+                if (numCoup != numeroCoupPrecedent)
+                {
+                    ListeCoupPossible.Add(numCoup);
+                }
+            }
+
+            if (colonne < (int)Math.Sqrt(taille)-1)
+            {
+                int numCoup = ligne * (int)Math.Sqrt(taille) + (colonne + 1);
+                if (numCoup != numeroCoupPrecedent)
+                {
+                    ListeCoupPossible.Add(numCoup);
+                }
+            }
+
+            if (ligne < (int)Math.Sqrt(taille)-1)
+            {
+                int numCoup = (ligne +1) * (int)Math.Sqrt(taille) + colonne;
+                if (numCoup != numeroCoupPrecedent)
+                {
+                    ListeCoupPossible.Add(numCoup);
+                }
+            }
+            Random alea = new Random();
+
+            int indice = alea.Next(0, ListeCoupPossible.Count);
+            Console.WriteLine("coup Jouer " + ListeCoupPossible[indice]);
+            return ListeCoupPossible[indice];
+        }
+
+        private void MelangerGrille()
+        {
+            int numCaseZero = taille-1;
+            int numCoupPrecedent = taille - 1;
+            for (int i = 0; i < taille; i++)
+            {
+                if (boutons[i].Tag == "zero")
+                {
+                    numCaseZero = i;
+                    numCoupPrecedent = numCaseZero;
+                }
+            }
+            int temp;
+
+            Random alea = new Random();
+            int nombreCoup = alea.Next(81, 100);
+
+
+            for (int i = 0;i < nombreCoup; i++)
+            {
+                temp = numCaseZero;
+                numCaseZero = coupPossible(numCaseZero, numCoupPrecedent);
+                numCoupPrecedent = temp;
+                boutons[numCaseZero].Tag = "zero";
+                boutons[numCoupPrecedent].Tag = null;
+
+
+                temp = valeurGrille[numCaseZero];
+                valeurGrille[numCaseZero] = valeurGrille[numCoupPrecedent];
+                valeurGrille[numCoupPrecedent] = temp;
+                AffichageGrille();
+                DebugAffichageConsoleGrille();
+            }
+        }
 
         private void Generation_doubletableau()
         {
-            int indice = 0;
-            Random alea = new Random();
-            List<int> nombreDisponible = new List<int>();
-
             for (int i = 0; i < taille; i++)
             {
-                nombreDisponible.Add(i);
+                valeurGrille[i] = i;
             }
-            foreach(int i in nombreDisponible) { Console.Write(i + ","); }
-            Console.WriteLine("");
-
-            for (int i = 0; i < valeurGrille.Length; i++)
-            {
-                if (nombreDisponible.Count > 0)
-                {
-                    indice = alea.Next(0, nombreDisponible.Count);
-                }
-
-                valeurGrille[i] = nombreDisponible[indice];
-                nombreDisponible.RemoveAt(indice);
-            }
-
-            DebugAffichageConsoleGrille();
         }
 
 
@@ -434,6 +507,10 @@ namespace SlidingPuzzle
             if (e.Key == fenetreMenu.ToucheTriche)
             {
                 Triche();  
+            }
+            if (e.Key == Key.R)
+            {
+                MelangerGrille();
             }
             if (e.Key == Key.V)
             {
