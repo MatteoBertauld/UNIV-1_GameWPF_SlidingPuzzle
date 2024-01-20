@@ -35,7 +35,7 @@ namespace SlidingPuzzle
             musiqueFond.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory + "son/musique.wav"));
             musiqueFond.Play();
             musiqueFond.MediaEnded += (sender, e) => musiqueFond.Position = TimeSpan.Zero;
-            musiqueFond.Volume = choixVolume/100;
+            musiqueFond.Volume = choixVolume / 100;
 
         }
 
@@ -49,7 +49,7 @@ namespace SlidingPuzzle
 
         public int Niveau
         {
-            get { if (choixDiff == 0) niveau = 9; else if (choixDiff == 1) niveau = 16; else niveau = 25;  return niveau; }
+            get { if (choixDiff == 0) niveau = 9; else if (choixDiff == 1) niveau = 16; else niveau = 25; return niveau; }
         }
 
         public int Mode
