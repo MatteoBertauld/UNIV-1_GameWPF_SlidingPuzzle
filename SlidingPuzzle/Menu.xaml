@@ -16,19 +16,19 @@
             x:Name="comboBoxChoix"
             Width="212"
             Height="38"
-            Margin="340,366,0,0"
+            Margin="248,252,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             FontSize="24">
-            <ComboBoxItem Content="Facile" IsSelected="True" />
-            <ComboBoxItem Content="Moyen" />
-            <ComboBoxItem Content="Difficile" />
+            <ComboBoxItem Content="Facile : 3x3" IsSelected="True" />
+            <ComboBoxItem Content="Moyen : 4x4" />
+            <ComboBoxItem Content="Difficile : 5x5" />
         </ComboBox>
         <Label
             x:Name="labDifficulte"
-            Margin="379,0,0,0"
+            Margin="297,205,0,0"
             HorizontalAlignment="Left"
-            VerticalAlignment="Center"
+            VerticalAlignment="Top"
             Content="Difficulté"
             FontSize="24"
             FontWeight="Bold"
@@ -48,8 +48,8 @@
         <Button
             x:Name="boutonJouer"
             Width="94"
-            Height="49"
-            Margin="0,419,0,0"
+            Height="50"
+            Margin="0,251,0,0"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
             Background="#00A06E31"
@@ -85,29 +85,6 @@
             Click="quitter_Click"
             Content="" >
         </Button>
-            
-        <ComboBox
-            x:Name="comboBoxMode"
-            Width="212"
-            Height="38"
-            Margin="650,366,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            FontSize="24">
-            <ComboBoxItem Content="Une grille" IsSelected="True" />
-            <ComboBoxItem Content="Course contre-la-montre" />
-        </ComboBox>
-            
-        <Label
-            x:Name="labMode"
-            Height="48"
-            Margin="718,320,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Content="Mode"
-            FontSize="24"
-            FontWeight="Bold"
-            Foreground="White" />
 
         <Button
             x:Name="butParam"
@@ -120,8 +97,16 @@
             Click="Button_Click_1"
             Content="">
         </Button>
+        <CheckBox x:Name="BooleenBoutonContreLaMontre" Content="Contre la montre" HorizontalAlignment="Left" Margin="784,251,0,0" VerticalAlignment="Top" Click="BooleenBoutonContreLaMontre_Click" IsChecked="False"/>
+        <Label x:Name="labelMinutes" Content="min" HorizontalAlignment="Right" Margin="0,267,180,0" VerticalAlignment="Top" Visibility="Collapsed"/>
+        <TextBox x:Name="textBoxTemps" Text="{Binding ElementName=sliderTemps, Path=Value, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center" Margin="0,271,208,0" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="Collapsed" />
+        <Slider x:Name="sliderTemps" HorizontalAlignment="Left" Margin="717,272,0,0" VerticalAlignment="Top" Width="238" Height="29" Visibility="Collapsed" ValueChanged="sliderTemps_ValueChanged" Maximum="30" TickPlacement="BottomRight" IsSnapToTickEnabled="True" Minimum="1" Value="10"/>
+        <Rectangle x:Name="RectangleImagePuzzle" HorizontalAlignment="Center" Height="250" VerticalAlignment="Top" Width="250" Fill="#FFBE3131" Margin="0,342,0,0" Stroke="Black" StrokeThickness="3"/>
+        <Button x:Name="bouttonChangerImagePuzzleGauche" Content="Gauche" HorizontalAlignment="Left" Margin="354,442,0,0" VerticalAlignment="Top" Click="bouttonChangerImagePuzzleGauche_Click" Width="50" Height="50"/>
+        <Button x:Name="bouttonChangerImagePuzzleDroit" Content="Droite" HorizontalAlignment="Left" Margin="784,442,0,0" VerticalAlignment="Top" Click="bouttonChangerImagePuzzleDroit_Click" Width="50" Height="50"/>
 
-        <Canvas x:Name="canvaParam" Visibility="Visible">
+
+        <Canvas x:Name="canvaParam" Visibility="Hidden">
             <Label
                 Canvas.Left="436"
                 Canvas.Top="55"
@@ -158,6 +143,5 @@
 
             <Label x:Name="labReglageSon" Content="" Canvas.Left="245" Canvas.Top="225" HorizontalAlignment="Left" Height="26" VerticalAlignment="Center" Width="54"/>
         </Canvas>
-
     </Grid>
 </Window>

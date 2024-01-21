@@ -34,8 +34,10 @@ namespace SlidingPuzzle
     {
         private ImageBrush fondMenu = new ImageBrush();
 
-        private System.Timers.Timer minuteur;
-        private TimeSpan tempsRestant;
+        private TimeSpan tempsMaximum;
+        private TimeSpan tempsdeJeu;
+
+        bool contreLaMontreActiver;
 
         private DispatcherTimer temps; // timer
         private Aide image = new Aide();
@@ -60,13 +62,20 @@ namespace SlidingPuzzle
         bool voirImage = false;
         bool voirImageNouvelleFenetre = false;
 
-        string[] listesSourceimages = new string[4] { "oiseaux.png", "artAbstrait.jpg", "info.jpg", "lac.jpg" };
-        private static string sourceImage = "oiseaux.png";
+        bool debutPartie = true;
 
+        private static string[] tableauSourceImages = new string[4] { "oiseaux.png", "artAbstrait.jpg", "info.jpg", "lac.jpg" };
 
-        public static string SourceImage
+        public static string[] TableauSourceImages
         {
-            get { return sourceImage; }
+            get { return tableauSourceImages; }
+        }
+
+        private static int indiceSourceImage = 0;
+
+        public static int IndiceSourceImage
+        {
+            get { return indiceSourceImage; }
         }
 
 
@@ -74,6 +83,11 @@ namespace SlidingPuzzle
         {
             
             InitializeComponent();
+
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += timer_Tick;
+            timer.Start();
 
             ImageBrush SkinMaison = new ImageBrush();
             SkinMaison.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/hut.png"));
@@ -93,19 +107,32 @@ namespace SlidingPuzzle
             {
                 mode = fenetreMenu.Mode;
                 difficulte = fenetreMenu.Niveau;
-            }
-
-            if (mode == 0)
-            {
-                //temps.Interval = TimeSpan.FromSeconds(1); //timer
-                //temps.Tick += Timer_Tick;                 //timer
-                //temps.Start();
+                indiceSourceImage = fenetreMenu.IndiceSourceImagePuzzle;
+                contreLaMontreActiver = fenetreMenu.ContreLaMontreActiver;
+                if (contreLaMontreActiver)
+                {
+                    tempsMaximum = fenetreMenu.TempsLimite;
+                }
             }
 
             taille = difficulte;
 
             InitialiseJeu();
         }
+
+        void timer_Tick(object sender, EventArgs e)
+        {
+            if (contreLaMontreActiver)
+            {
+                tempsdeJeu -= TimeSpan.FromSeconds(1);
+            } else
+            {
+                tempsdeJeu += TimeSpan.FromSeconds(1);
+            }
+            
+            labelTemps.Content = tempsdeJeu.Minutes.ToString() + " min et " + tempsdeJeu.Seconds.ToString() + " s";
+        }
+
 
         public void ListButtons(DependencyObject parent)
         {
@@ -179,20 +206,28 @@ namespace SlidingPuzzle
 
         private void InitialiseJeu()
         {
+            if (contreLaMontreActiver)
+            {
+                tempsdeJeu = tempsMaximum;
+            } else
+            {
+                tempsdeJeu = TimeSpan.Zero;
+            }
+            
+            labelMelangerGrille.Visibility = Visibility.Visible;
+            debutPartie = true;
             valeurGrille = new int[taille];
             boutons = new Button[taille];
             ListeImages = new System.Windows.Controls.Image[taille];
             Random alea = new Random();
-            sourceImage = listesSourceimages[alea.Next(0, 4)];
 
             //mode = fenetreMenu.Mode;
             CreationGrille();
             Generation_doubletableau();
             CreerBoutons();
             ListButtonsInActiveWindow();
-            MelangerGrille();
             DebugAffichageConsoleGrille();
-            AffichageGrille();
+            Panel.SetZIndex(labelMelangerGrille, 3);
 
             foreach (Button bout in boutons)
             {
@@ -202,7 +237,7 @@ namespace SlidingPuzzle
             
         private void Timer_Tick(object sender, EventArgs e)
         {
-            labTemps.Content = "Temps : " + minute + "min" + (compteurTemps++) + "s";
+            //labTemps.Content = "Temps : " + minute + "min" + (compteurTemps++) + "s";
             if ((double)compteurTemps % 60 == 0)
             {
                 compteurTemps = 0;
@@ -220,8 +255,7 @@ namespace SlidingPuzzle
                 valeurGrille[i] = i;
                 chaine += valeurGrille[i];
             }
-            labelDebug.Content = chaine;
-            AffichageGrille();
+            AffichageGrille(true);
         }
 
 
@@ -265,7 +299,13 @@ namespace SlidingPuzzle
 
         private void Clique(object sender, EventArgs e)
         {
-
+            if (debutPartie == true)
+            {
+                MelangerGrille();
+                debutPartie = false;
+                labelMelangerGrille.Visibility = Visibility.Hidden;
+                return;
+            }
             Button bouton = sender as Button;
 
             int temp;
@@ -303,7 +343,7 @@ namespace SlidingPuzzle
                     }
                 }
             }
-            AffichageGrille();
+            AffichageGrille(true);
             Victoire();
         }
 
@@ -322,12 +362,12 @@ namespace SlidingPuzzle
 
                 maGrille.Children.Add(test2);
                 boutons[i] = test2;
-                Panel.SetZIndex(boutons[i], 1);
+                Panel.SetZIndex(boutons[i], 2);
 
 
                 BitmapImage bitmapImage = new BitmapImage();
                 bitmapImage.BeginInit();
-                bitmapImage.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/FondPuzzle/" + sourceImage);
+                bitmapImage.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/FondPuzzle/" + tableauSourceImages[indiceSourceImage]);
                 bitmapImage.EndInit();
 
                 Image croppedImage = new();
@@ -347,22 +387,28 @@ namespace SlidingPuzzle
                 ListeImages[i] = croppedImage;
             }
             boutons[taille-1].Tag = "zero";
-            AffichageGrille();
+            AffichageGrille(false);
         }
 
 
-        private void AffichageGrille()
+        private void AffichageGrille(bool AfficheZero)
         {
             for (int i = 0; i < taille; i++)
             {
-                //Panel.SetZIndex(boutons[i], 1);
                 Grid.SetRow(ListeImages[valeurGrille[i]], i / (int)Math.Sqrt(taille));
                 Grid.SetColumn(ListeImages[valeurGrille[i]], i % (int)Math.Sqrt(taille));
 
-                if (boutons[i].Tag == "zero")
+                if (AfficheZero)
                 {
-                    boutons[i].Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 255, 255, 255)); 
-                }
+                    if (boutons[i].Tag == "zero")
+                    {
+                        boutons[i].Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 255, 255, 255));
+                    }
+                    else
+                    {
+                        boutons[i].Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 0, 0, 0));
+                    }
+                } 
                 else
                 {
                     boutons[i].Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 0, 0, 0));
@@ -436,8 +482,24 @@ namespace SlidingPuzzle
             return ListeCoupPossible[indice];
         }
 
+        private static void PauseEtRaffraichissementInterfaceGraphique() // fonction trouvé sur stackoverflow : https://stackoverflow.com/questions/37787388/how-to-force-a-ui-update-during-a-lengthy-task-on-the-ui-thread
+        {
+            DispatcherFrame frame = new();
+            // DispatcherPriority set to Input, the highest priority
+            Dispatcher.CurrentDispatcher.Invoke(DispatcherPriority.Input, new DispatcherOperationCallback(delegate (object parameter)
+            {
+                frame.Continue = false;
+                Thread.Sleep(10); // Stop all processes to make sure the UI update is perform
+                return null;
+            }), null);
+            Dispatcher.PushFrame(frame);
+            // DispatcherPriority set to Input, the highest priority
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Input, new Action(delegate { }));
+        }
+
         private void MelangerGrille()
         {
+            labelMelangerGrille.Visibility = Visibility.Hidden;
             int numCaseZero = taille-1;
             int numCoupPrecedent = taille - 1;
             for (int i = 0; i < taille; i++)
@@ -451,7 +513,7 @@ namespace SlidingPuzzle
             int temp;
 
             Random alea = new Random();
-            int nombreCoup = alea.Next(81, 100);
+            int nombreCoup = alea.Next(taille*3, taille * 3+15);
 
 
             for (int i = 0;i < nombreCoup; i++)
@@ -466,8 +528,11 @@ namespace SlidingPuzzle
                 temp = valeurGrille[numCaseZero];
                 valeurGrille[numCaseZero] = valeurGrille[numCoupPrecedent];
                 valeurGrille[numCoupPrecedent] = temp;
+                AffichageGrille(false);
+                DebugAffichageConsoleGrille();
+                PauseEtRaffraichissementInterfaceGraphique();
             }
-            AffichageGrille();
+            AffichageGrille(true);
         }
 
         private void Generation_doubletableau()
@@ -479,7 +544,7 @@ namespace SlidingPuzzle
         }
 
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void BoutonMaison_click(object sender, RoutedEventArgs e)
         {
             SupprimeObjectDeLaGrille();
             Menu retour = new Menu();
@@ -487,8 +552,11 @@ namespace SlidingPuzzle
             if (retour.DialogResult == false)
                 System.Windows.Application.Current.Shutdown();
             else
-                difficulte = retour.Niveau;
-            taille = difficulte;
+                mode = fenetreMenu.Mode;
+                difficulte = fenetreMenu.Niveau;
+                indiceSourceImage = fenetreMenu.IndiceSourceImagePuzzle;
+                contreLaMontreActiver = fenetreMenu.ContreLaMontreActiver;
+
             InitialiseJeu();
         }
 
@@ -500,7 +568,13 @@ namespace SlidingPuzzle
 
         private void maGrille_KeyDown(object sender, KeyEventArgs e)
         {
-            Console.WriteLine(keyTriche.ToString());
+            if (debutPartie == true)
+            {
+                MelangerGrille();
+                labelMelangerGrille.Visibility = Visibility.Hidden;
+                debutPartie = false;
+            }
+
             if (e.Key == fenetreMenu.ToucheTriche)
             {
                 Triche();  
@@ -524,5 +598,6 @@ namespace SlidingPuzzle
         {
             image.Show();
         }
+
     }
 }

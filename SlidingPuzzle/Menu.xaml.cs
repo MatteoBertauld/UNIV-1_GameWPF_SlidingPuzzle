@@ -28,6 +28,33 @@ namespace SlidingPuzzle
         private int niveau;
         private Key toucheTriche = Key.C;
 
+        private TimeSpan tempsLimite = TimeSpan.Zero;
+
+        public TimeSpan TempsLimite
+        {
+            get { return tempsLimite; }
+            set { tempsLimite = value; }
+        }
+
+
+
+        private bool contreLaMontreActiver = false;
+
+        public bool ContreLaMontreActiver
+        {
+            get { return contreLaMontreActiver; }
+            set { contreLaMontreActiver = value; }
+        }
+
+
+        private int indiceSourceImagePuzzle = 0;
+
+        public int IndiceSourceImagePuzzle
+        {
+            get { return indiceSourceImagePuzzle; }
+            set { indiceSourceImagePuzzle = value; }
+        }
+
 
         public Menu()
         {
@@ -60,12 +87,21 @@ namespace SlidingPuzzle
             butTriche.Background = SkinbouttonTriche;
 
 
+            ChangerImagePuzzle();
+        }
+
+        private void ChangerImagePuzzle()
+        {
+            ImageBrush SkinImagePuzzle = new ImageBrush();
+            string source = MainWindow.TableauSourceImages[IndiceSourceImagePuzzle];
+            SkinImagePuzzle.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/FondPuzzle/" + source));
+            RectangleImagePuzzle.Fill = SkinImagePuzzle;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             choixDiff = comboBoxChoix.SelectedIndex;
-            choixMode = comboBoxMode.SelectedIndex;
+            choixMode = 1;
             choixVolume = (int)sliderSon.Value;
             this.DialogResult = true;
         }
@@ -114,5 +150,52 @@ namespace SlidingPuzzle
             sliderSon.Value = choixVolume;
         }
 
+        private void bouttonChangerImagePuzzleGauche_Click(object sender, RoutedEventArgs e)
+        {
+            if (IndiceSourceImagePuzzle == 0)
+            {
+                IndiceSourceImagePuzzle = 3;
+            } else
+            {
+                IndiceSourceImagePuzzle -= 1;
+            }
+            ChangerImagePuzzle();
+        }
+
+        private void bouttonChangerImagePuzzleDroit_Click(object sender, RoutedEventArgs e)
+        {
+            if (IndiceSourceImagePuzzle == 3)
+            {
+                IndiceSourceImagePuzzle = 0;
+            }
+            else
+            {
+                IndiceSourceImagePuzzle += 1;
+            }
+            ChangerImagePuzzle();
+        }
+
+        private void BooleenBoutonContreLaMontre_Click(object sender, RoutedEventArgs e)
+        {
+            if (ContreLaMontreActiver)
+            {
+                ContreLaMontreActiver = false;
+                sliderTemps.Visibility = Visibility.Collapsed;
+                textBoxTemps.Visibility = Visibility.Collapsed;
+                labelMinutes.Visibility = Visibility.Collapsed;
+            } 
+            else
+            {
+                ContreLaMontreActiver = true;
+                sliderTemps.Visibility = Visibility.Visible;
+                textBoxTemps.Visibility = Visibility.Visible;
+                labelMinutes.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void sliderTemps_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            TempsLimite = TimeSpan.FromMinutes((int)sliderTemps.Value);
+        }
     }
 }
