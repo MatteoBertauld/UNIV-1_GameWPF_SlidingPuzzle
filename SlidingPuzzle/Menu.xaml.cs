@@ -74,17 +74,17 @@ namespace SlidingPuzzle
 
             ImageBrush Skinfond = new ImageBrush();
             Skinfond.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/fond.png"));
-            canvaParam.Background = Skinfond;
-            MenuGrille.Background = Skinfond;
+            GrillePageParametre.Background = Skinfond;
+            PagePrincipal.Background = Skinfond;
 
             ImageBrush SkinbouttonRetour = new ImageBrush();
             SkinbouttonRetour.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/back.png"));
-            buttRetour.Background = SkinbouttonRetour;
+            boutonRetour.Background = SkinbouttonRetour;
             
 
             ImageBrush SkinbouttonTriche = new ImageBrush();
             SkinbouttonTriche.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/toucheClavier.png"));
-            butTriche.Background = SkinbouttonTriche;
+            boutonTriche.Background = SkinbouttonTriche;
 
 
             ChangerImagePuzzle();
@@ -117,20 +117,19 @@ namespace SlidingPuzzle
         }
 
 
-        private void quitter_Click(object sender, RoutedEventArgs e)
+        private void BoutonQuitter_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = false;
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void BoutonPageParametre_Click(object sender, RoutedEventArgs e)
         {
-            canvaParam.Visibility = Visibility.Visible;
+            GrillePageParametre.Visibility = Visibility.Visible;
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void BoutonRetour_Clique(object sender, RoutedEventArgs e)
         {
-            canvaParam.Visibility = Visibility.Hidden;
-
+            GrillePageParametre.Visibility = Visibility.Hidden;
         }
 
 
@@ -141,7 +140,7 @@ namespace SlidingPuzzle
 
         private void butTriche_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            butTriche.Content = e.Key.ToString();
+            boutonTriche.Content = e.Key.ToString();
             toucheTriche = e.Key;
         }
 
