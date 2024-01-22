@@ -28,6 +28,33 @@ namespace SlidingPuzzle
         private int niveau;
         private Key toucheTriche = Key.C;
 
+        private TimeSpan tempsLimite = TimeSpan.Zero;
+
+        public TimeSpan TempsLimite
+        {
+            get { return tempsLimite; }
+            set { tempsLimite = value; }
+        }
+
+
+
+        private bool contreLaMontreActiver = false;
+
+        public bool ContreLaMontreActiver
+        {
+            get { return contreLaMontreActiver; }
+            set { contreLaMontreActiver = value; }
+        }
+
+
+        private int indiceSourceImagePuzzle = 0;
+
+        public int IndiceSourceImagePuzzle
+        {
+            get { return indiceSourceImagePuzzle; }
+            set { indiceSourceImagePuzzle = value; }
+        }
+
 
         public Menu()
         {
@@ -52,19 +79,53 @@ namespace SlidingPuzzle
             musiqueFond.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory + "son/musique.wav"));
             //musiqueFond.Play();
             musiqueFond.MediaEnded += (sender, e) => musiqueFond.Position = TimeSpan.Zero;
+            musiqueFond.Volume = choixVolume / 100;
 
+            ImageBrush SkinBoutonQuitter = new ImageBrush();
+            SkinBoutonQuitter.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/close-window.png"));
+            butQuitter.Background = SkinBoutonQuitter;
+
+            ImageBrush SkinboutontParametre = new ImageBrush();
+            SkinboutontParametre.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/settings.png"));
+            butParam.Background = SkinboutontParametre;
+
+            ImageBrush Skinfond = new ImageBrush();
+            Skinfond.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/fond.png"));
+            GrillePageParametre.Background = Skinfond;
+            PagePrincipal.Background = Skinfond;
+
+            ImageBrush SkinbouttonRetour = new ImageBrush();
+            SkinbouttonRetour.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/back.png"));
+            boutonRetour.Background = SkinbouttonRetour;
+            
+
+            ImageBrush SkinbouttonTriche = new ImageBrush();
+            SkinbouttonTriche.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/toucheClavier.png"));
+            boutonTriche.Background = SkinbouttonTriche;
+
+
+            ChangerImagePuzzle();
+        }
+
+        private void ChangerImagePuzzle()
+        {
+            ImageBrush SkinImagePuzzle = new ImageBrush();
+            string source = MainWindow.TableauSourceImages[IndiceSourceImagePuzzle];
+            SkinImagePuzzle.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/FondPuzzle/" + source));
+            RectangleImagePuzzle.Fill = SkinImagePuzzle;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             choixDiff = comboBoxChoix.SelectedIndex;
-            choixMode = comboBoxMode.SelectedIndex;
+            choixMode = 1;
+            choixVolume = (int)sliderSon.Value;
             this.DialogResult = true;
         }
 
         public int Niveau
         {
-            get { if (choixDiff == 0) niveau = 9; else if (choixDiff == 1) niveau = 16; else niveau = 25;  return niveau; }
+            get { if (choixDiff == 0) niveau = 9; else if (choixDiff == 1) niveau = 16; else niveau = 25; return niveau; }
         }
 
         public int Mode
@@ -73,20 +134,19 @@ namespace SlidingPuzzle
         }
 
 
-        private void quitter_Click(object sender, RoutedEventArgs e)
+        private void BoutonQuitter_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = false;
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void BoutonPageParametre_Click(object sender, RoutedEventArgs e)
         {
-            canvaParam.Visibility = Visibility.Visible;
+            GrillePageParametre.Visibility = Visibility.Visible;
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void BoutonRetour_Clique(object sender, RoutedEventArgs e)
         {
-            canvaParam.Visibility = Visibility.Hidden;
-
+            GrillePageParametre.Visibility = Visibility.Hidden;
         }
 
 
@@ -97,9 +157,61 @@ namespace SlidingPuzzle
 
         private void butTriche_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            butTriche.Content = e.Key.ToString();
+            boutonTriche.Content = e.Key.ToString();
             toucheTriche = e.Key;
         }
 
+        private void sliderSon_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            sliderSon.Value = choixVolume;
+        }
+
+        private void bouttonChangerImagePuzzleGauche_Click(object sender, RoutedEventArgs e)
+        {
+            if (IndiceSourceImagePuzzle == 0)
+            {
+                IndiceSourceImagePuzzle = 3;
+            } else
+            {
+                IndiceSourceImagePuzzle -= 1;
+            }
+            ChangerImagePuzzle();
+        }
+
+        private void bouttonChangerImagePuzzleDroit_Click(object sender, RoutedEventArgs e)
+        {
+            if (IndiceSourceImagePuzzle == 3)
+            {
+                IndiceSourceImagePuzzle = 0;
+            }
+            else
+            {
+                IndiceSourceImagePuzzle += 1;
+            }
+            ChangerImagePuzzle();
+        }
+
+        private void BooleenBoutonContreLaMontre_Click(object sender, RoutedEventArgs e)
+        {
+            if (ContreLaMontreActiver)
+            {
+                ContreLaMontreActiver = false;
+                sliderTemps.Visibility = Visibility.Collapsed;
+                textBoxTemps.Visibility = Visibility.Collapsed;
+                labelMinutes.Visibility = Visibility.Collapsed;
+            } 
+            else
+            {
+                ContreLaMontreActiver = true;
+                sliderTemps.Visibility = Visibility.Visible;
+                textBoxTemps.Visibility = Visibility.Visible;
+                labelMinutes.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void sliderTemps_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            TempsLimite = TimeSpan.FromMinutes((int)sliderTemps.Value);
+        }
     }
 }
