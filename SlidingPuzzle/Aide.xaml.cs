@@ -22,7 +22,6 @@ namespace SlidingPuzzle
         public Aide()
         {
             InitializeComponent();
-            this.SizeToContent = SizeToContent.WidthAndHeight;
             ImageBrush canvaFond = new ImageBrush();
 
             string source = MainWindow.TableauSourceImages[MainWindow.IndiceSourceImage];

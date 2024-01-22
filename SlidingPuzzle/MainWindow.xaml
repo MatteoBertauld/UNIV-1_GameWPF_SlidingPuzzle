@@ -23,18 +23,19 @@
                     <GradientStop Offset="1" Color="#FF2B1400" />
                 </LinearGradientBrush>
             </Canvas.Background>
+            <Button x:Name="boutVoirImage" Canvas.Left="36" Canvas.Top="5" Click="BoutVoirImage_Click" BorderBrush="#00707070"/>
         </Canvas>
         <Canvas DockPanel.Dock="Top" Height="30">
-            <Button x:Name="Maison"
+            <Button x:Name="boutRetourMenu"
                 Width="30"
                 Height="30"
                 Margin="0,0,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Click="BoutonMaison_click"
+                Click="BoutMaison_click"
                 Content="">
             </Button>
-            <Label x:Name="labelTemps" Content="temps" Canvas.Left="50" Foreground="White"/>
+            <Label x:Name="labTemps" Content="" Canvas.Left="50" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Width="284"/>
             <Canvas.Background>
                 <LinearGradientBrush>
                     <GradientStop Color="#FF7F2E00" />
@@ -64,7 +65,7 @@
             Background="White"
             Focusable="True"
             PreviewKeyDown="maGrille_KeyDown">
-            <Label x:Name="labelMelangerGrille" Content="Appuyez sur une Touche pour mélanger la grille" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="5" Grid.RowSpan="5" Background="#CC000000" Foreground="White"/>
+            <Label x:Name="labMelangerGrille" Content="Appuyez sur une Touche pour mélanger la grille" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="5" Grid.RowSpan="5" Background="#CC000000" Foreground="White"/>
         </Grid>
     </DockPanel>
 </Window>
