@@ -23,6 +23,11 @@ namespace SlidingPuzzle
         public Defaite()
         {
             InitializeComponent();
+            ImageBrush titreDefaite = new ImageBrush();
+            titreDefaite.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/defaite.png"));
+
+            rectDefaite.Fill = titreDefaite;
+
         }
     }
 }

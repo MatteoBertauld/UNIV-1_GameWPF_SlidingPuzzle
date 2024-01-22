@@ -82,10 +82,5 @@
             BorderBrush="Black"
             Content="QUITTER"
             FontSize="22" />
-
-        <Grid.Background>
-            <ImageBrush ImageSource="/fond.png" />
-        </Grid.Background>
-
     </Grid>
 </Window>

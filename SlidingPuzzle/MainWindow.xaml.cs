@@ -31,10 +31,7 @@ namespace SlidingPuzzle
     public partial class MainWindow : Window
     {
         private ImageBrush fondMenu = new ImageBrush();
-
-        private System.Timers.Timer minuteur;
-        private TimeSpan tempsRestant;
-
+        private MediaPlayer musiqueFond = new MediaPlayer();
         private DispatcherTimer temps; // timer
         private Aide image = new Aide();
         private DispatcherTimer dispatcherTimer = new DispatcherTimer();
@@ -54,14 +51,18 @@ namespace SlidingPuzzle
         bool voirImage = false;
         bool voirImageNouvelleFenetre = false;
 
+
+
         public MainWindow()
         {
-            //fondMenu.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/fond.png"));
-            //maGrille.Background = fondMenu;
             InitializeComponent();
             InitialiseJeu();
 
-            Console.WriteLine(fenetreMenu.ToucheTriche.ToString());
+            ImageBrush symboleMaison = new ImageBrush();
+            symboleMaison.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/hut.png"));
+            butRetourMenu.Background = symboleMaison;
+
+            musiqueFond.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory + "son/musique.wav"));
 
             fenetreMenu.ShowDialog();
             if (fenetreMenu.DialogResult == false)
@@ -125,7 +126,7 @@ namespace SlidingPuzzle
             
         private void Timer_Tick(object sender, EventArgs e)
         {
-            labTemps.Content = "Temps : " + minute + "min" + (compteurTemps++) + "s";
+            //labTemps.Content = "Temps : " + minute + "min" + (compteurTemps++) + "s";
             if ((double)compteurTemps % 60 == 0)
             {
                 compteurTemps = 0;
@@ -178,12 +179,9 @@ namespace SlidingPuzzle
                 int c2 = Grid.GetColumn(bout);
                 int l2 = Grid.GetRow(bout);
                 int num2 = l2 * (int)Math.Sqrt(taille) + c2;
-                Console.WriteLine("colonne bouton " + c2 + " ligne " + l2 + "numero " + num2);
 
                 if (bout.Tag == "zero")
                 {
-                    Console.WriteLine("zero");
-                    //labelDebug.Content = "colonne zero " + colonne + " ligne " + ligne + "numero " + numero;
                     if (((c2 == colonne - 1 || c2 == colonne + 1) && (l2 == ligne)) || ((l2 == ligne - 1 || l2 == ligne + 1) && (c2 == colonne)))
                     {
                         foreach (int i in valeurGrille) { Console.Write(i); }
@@ -195,8 +193,6 @@ namespace SlidingPuzzle
                         Console.Write("\n");
                         foreach (int i in valeurGrille) { Console.Write(i); }
 
-                        Console.Write("numero : " + valeurGrille[numero]);
-                        Console.Write(" / num : " + valeurGrille[num2]);
 
                         //Grid.SetRow(ListeImages[valeurGrille[num2]], l2);
                         //Grid.SetColumn(ListeImages[valeurGrille[num2]], c2);
@@ -216,6 +212,7 @@ namespace SlidingPuzzle
                         Panel.SetZIndex(bouton, 1);
                         */
                     }
+                    musiqueFond.Play();
                 }
             }
             AffichageGrille();
@@ -300,8 +297,7 @@ namespace SlidingPuzzle
 
             if (testVictoire == true)
             {
-                Victoire page = new Victoire();
-                page.Show();
+                //canvaVictoire.Visibility = Visibility.Visible;
             }
         }
         
@@ -348,12 +344,6 @@ namespace SlidingPuzzle
             InitialiseJeu();
         }
 
-
-        private void BoutonVoirImage(object sender, RoutedEventArgs e)
-        {
-            image.Show();
-        }
-
         private void maGrille_KeyDown(object sender, KeyEventArgs e)
         {
             Console.WriteLine(keyTriche.ToString());
@@ -372,9 +362,24 @@ namespace SlidingPuzzle
             }
         }
 
-        private void butVoirImage_DragOver(object sender, DragEventArgs e)
+
+        private void butVoirImage_Click(object sender, RoutedEventArgs e)
         {
-            image.Show();
+            if (!image.IsLoaded)
+            {
+                image = new Aide(); 
+            }
+
+            if (fenetreMenu.DialogResult == false)
+            {
+                image.Hide();
+            }
+            else
+            {
+                image.Show();
+            }
         }
+
+
     }
 }

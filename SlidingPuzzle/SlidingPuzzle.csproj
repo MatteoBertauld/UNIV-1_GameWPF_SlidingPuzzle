@@ -8,15 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="back.png" />
-    <None Remove="defaite.PNG" />
     <None Remove="fond.png" />
-    <None Remove="hut.png" />
     <None Remove="Images\fond.png" />
-    <None Remove="OIG.jfif" />
-    <None Remove="photo_nombre.jpg" />
-    <None Remove="settings.png" />
-    <None Remove="toucheClavier.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,20 +22,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="back.png" />
-    <Resource Include="defaite.PNG" />
-    <Resource Include="fond.png" />
-    <Resource Include="hut.png" />
     <Resource Include="Images\close-window.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\fond.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="OIG.jfif" />
-    <Resource Include="photo_nombre.jpg" />
-    <Resource Include="settings.png" />
-    <Resource Include="toucheClavier.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -55,16 +40,7 @@
     <None Update="Images\hut.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Images\ImagePuzzle.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Images\OIG.jfif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="Images\oiseaux.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Images\photo_nombre.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Images\settings.png">

@@ -54,7 +54,7 @@
                     <GradientStop Offset="1" Color="#FF2B1400" />
                 </LinearGradientBrush>
             </Label.Background>
-            <Label x:Name="labTemps" Content="" Width="135"/>
+            <Button x:Name="butVoirImage" Content="" Background="Red" Width="128" Click="butVoirImage_Click"/>
         </Label>
 
         <Grid
@@ -62,7 +62,7 @@
             Background="White"
             Focusable="True"
             PreviewKeyDown="maGrille_KeyDown">
-            <Button
+            <Button x:Name="butRetourMenu"
                 Width="30"
                 Height="30"
                 Margin="-30,-30,0,0"
@@ -71,9 +71,10 @@
                 Click="Button_Click"
                 Content="">
                 <Button.Background>
-                    <ImageBrush ImageSource="/hut.png" />
+                    <ImageBrush />
                 </Button.Background>
             </Button>
+            
         </Grid>
     </DockPanel>
 </Window>

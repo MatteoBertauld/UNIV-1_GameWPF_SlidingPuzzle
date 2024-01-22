@@ -32,10 +32,26 @@ namespace SlidingPuzzle
         public Menu()
         {
             InitializeComponent();
+            ImageBrush fondCarton = new ImageBrush();
+            ImageBrush flecheRetour = new ImageBrush();
+            ImageBrush symboleParam = new ImageBrush();
+            ImageBrush contourLettre = new ImageBrush();
+            ImageBrush maisonMenu = new ImageBrush();
+            fondCarton.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/fond.png"));
+            flecheRetour.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/back.png"));
+            maisonMenu.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/hut.png"));
+            symboleParam.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/settings.png"));
+            contourLettre.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/toucheClavier.png"));
+            canvaParam.Background = fondCarton;
+            grilleMenu.Background = fondCarton;
+            buttRetour.Background = flecheRetour;
+            butQuitter.Background = maisonMenu;
+            butParam.Background = symboleParam;
+            butTriche.Background = contourLettre;
+
             musiqueFond.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory + "son/musique.wav"));
-            musiqueFond.Play();
+            //musiqueFond.Play();
             musiqueFond.MediaEnded += (sender, e) => musiqueFond.Position = TimeSpan.Zero;
-            musiqueFond.Volume = choixVolume/100;
 
         }
 
@@ -43,7 +59,6 @@ namespace SlidingPuzzle
         {
             choixDiff = comboBoxChoix.SelectedIndex;
             choixMode = comboBoxMode.SelectedIndex;
-            choixVolume = (int)sliderSon.Value;
             this.DialogResult = true;
         }
 
@@ -84,11 +99,6 @@ namespace SlidingPuzzle
         {
             butTriche.Content = e.Key.ToString();
             toucheTriche = e.Key;
-        }
-
-        private void sliderSon_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            sliderSon.Value = choixVolume;
         }
 
     }

@@ -8,9 +8,9 @@
         d:DesignHeight="450" d:DesignWidth="800"
         Title="Defaite">
     <Grid>
-        <Rectangle Height="100" Width="240" HorizontalAlignment="Center" VerticalAlignment="Top">
+        <Rectangle x:Name="rectDefaite" Height="100" Width="240" HorizontalAlignment="Center" VerticalAlignment="Top">
             <Rectangle.Fill>
-                <ImageBrush ImageSource="/defaite.PNG"/>
+                <ImageBrush/>
             </Rectangle.Fill>
         </Rectangle>
     </Grid>
