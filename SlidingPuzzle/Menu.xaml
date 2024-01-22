@@ -12,9 +12,9 @@
     MinHeight="550"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <Grid x:Name="FenetreMenuGrille">
+    <Grid x:Name="FenetreMenuGrille" Visibility="Visible">
 
-        <Grid x:Name="PagePrincipal">
+        <Grid x:Name="pagePrincipal">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="2*" />
@@ -66,23 +66,22 @@
             Foreground="White" FontWeight="Bold" BorderBrush="Black" BorderThickness="5,5,5,5" />
 
             <Button
-            x:Name="boutonJouer"
+            x:Name="boutJouer"
             Grid.Row="1" 
             Grid.Column="2"
             Grid.RowSpan="2"
-            Width="120"
-            Height="80"
+            Width="150"
+            Height="150"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            BorderBrush="Black"
-            Click="Button_Click"
-            Content="JOUER"
+            BorderBrush="#00000000"
+            Click="BoutJouer_Click"
             FontSize="30" />
 
             <Label
             Grid.Row="4" 
             Grid.Column="2"
-            x:Name="labelAuteur"
+            x:Name="labAuteur"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Content="BERTAULD Mattéo | ALLEON Victor"
@@ -90,7 +89,7 @@
             FontWeight="Bold" />
 
             <Button
-            x:Name="butQuitter"
+            x:Name="boutQuitter"
             Width="50"
             Height="50"
             Grid.Row="0" 
@@ -98,11 +97,15 @@
             Margin="15,14,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Click="BoutonQuitter_Click" BorderBrush="#00FF0000"
-            />
+            Click="BoutQuitter_Click" BorderBrush="#00000000"
+            >
+                <Button.Background>
+                    <ImageBrush/>
+                </Button.Background>
+            </Button>
 
             <Button 
-            x:Name="butParam"
+            x:Name="boutParam"
             Width="50"
             Height="50"
             Grid.Row="4" 
@@ -111,16 +114,16 @@
             VerticalAlignment="Bottom"
             Margin="0,0,15,15"
             BorderBrush="#00FF0000"
-            Click="BoutonPageParametre_Click">
+            Click="BoutParam_Click">
             </Button>
             <CheckBox 
-            x:Name="BooleenBoutonContreLaMontre" 
+            x:Name="checkBoxContreLaMontre" 
             Content="Contre la montre" 
             Grid.Row="1" 
             Grid.Column="3"
             VerticalAlignment="Bottom" 
             HorizontalAlignment="Center" 
-            Click="BooleenBoutonContreLaMontre_Click" 
+            Click="CheckBoxContreLaMontre_Click" 
             IsChecked="False" 
             FontSize="20"
             Padding="5,-8,0,0"/>
@@ -167,28 +170,26 @@
             <Button 
                 Grid.Row="3" 
                 Grid.Column="1"
-                x:Name="bouttonChangerImagePuzzleGauche" 
-                Content="Gauche" 
+                x:Name="boutChangerImagePuzzleGauche" 
                 HorizontalAlignment="Right" 
                 VerticalAlignment="Center"
                 Margin="0,0,25,0"
-                Click="bouttonChangerImagePuzzleGauche_Click" 
+                Click="BoutChangerImagePuzzleGauche_Click" 
                 Width="50" 
-                Height="50"/>
+                Height="50" BorderBrush="#00707070"/>
             <Button 
                 Grid.Row="3" 
                 Grid.Column="3"
-                x:Name="bouttonChangerImagePuzzleDroit" 
-                Content="Droite" 
+                x:Name="boutChangerImagePuzzleDroit" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Center" 
                  Margin="25,0,0,0"
-                Click="bouttonChangerImagePuzzleDroit_Click" 
+                Click="BoutChangerImagePuzzleDroit_Click" 
                 Width="50" 
-                Height="50"/>
+                Height="50" BorderBrush="#00707070"/>
         </Grid>
 
-        <Grid x:Name="GrillePageParametre" Visibility="Hidden" Background="Gray">
+        <Grid x:Name="grillePageParametre" Visibility="Hidden" Background="Gray">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.09*" />
@@ -210,7 +211,7 @@
                 <RowDefinition Height="0.25*" />
             </Grid.RowDefinitions>
 
-            <Label x:Name="labelParametre"
+            <Label x:Name="labParametre"
                 Grid.Row="1" 
                 Grid.Column="2"
                 Grid.ColumnSpan="4"
@@ -224,13 +225,13 @@
             <Button
                 Grid.Row="1" 
                 Grid.Column="1"
-                x:Name="boutonRetour"
+                x:Name="boutRetour"
                 Width="50"
                 Height="50"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 BorderBrush="#00707070"
-                Click="BoutonRetour_Clique">
+                Click="BoutRetour_Clique">
             </Button>
 
             <Slider 
@@ -272,7 +273,7 @@
                 FontSize="30" 
                 FontWeight="Bold"/>
 
-            <Label x:Name="labelTriche" 
+            <Label x:Name="labTriche" 
                 Padding="0,0,0,5"
                 Grid.Row="4" 
                 Grid.Column="2"
@@ -285,17 +286,16 @@
             <Button 
                 Grid.Row="4" 
                 Grid.Column="3"
-                x:Name="boutonTriche" 
+                x:Name="boutTriche" 
                 Content="C" 
                 Height="70" Width="70" 
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center" 
                 FontSize="28" 
                 BorderBrush="#00707070" 
-                PreviewKeyDown="butTriche_PreviewKeyDown">
-            </Button>
+                PreviewKeyDown="BoutTriche_PreviewKeyDown"/>
 
-            <Label x:Name="labelRecommencer" 
+            <Label x:Name="labRecommencer" 
                 Padding="0,0,0,5"
                 Grid.Row="5" 
                 Grid.Column="2"
@@ -308,21 +308,19 @@
             <Button 
                 Grid.Row="5" 
                 Grid.Column="3"
-                x:Name="boutonRecommencer" 
+                x:Name="boutRecommencer" 
                 Content="R" 
                 Height="70" Width="70" 
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center" 
                 FontSize="28" 
-                BorderBrush="#00707070" 
-                PreviewKeyDown="butTriche_PreviewKeyDown">
-            </Button>
+                BorderBrush="#00707070" PreviewKeyDown="BoutRecommencer_PreviewKeyDown"/>
 
-            <Label x:Name="labelAfficherImage" 
+            <Label x:Name="labAfficherImage" 
                 Padding="0,0,0,5"
                 Grid.Row="4" 
                 Grid.Column="4"
-                Content="afficher image :" 
+                Content="Afficher image :" 
                 FontSize="24" 
                 Foreground="White" 
                 HorizontalAlignment="Right" 
@@ -331,17 +329,15 @@
             <Button 
                 Grid.Row="4" 
                 Grid.Column="5"
-                x:Name="boutonAfficherImage" 
+                x:Name="boutAfficherImage" 
                 Content="I" 
                 Height="70" Width="70" 
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center" 
                 FontSize="28" 
-                BorderBrush="#00707070" 
-                PreviewKeyDown="butTriche_PreviewKeyDown">
-            </Button>
+                BorderBrush="#00707070" PreviewKeyDown="BoutAfficherImage_PreviewKeyDown"/>
 
-            <Label x:Name="labelPause" 
+            <Label x:Name="labPause" 
                 Padding="0,0,0,5"
                 Grid.Row="5" 
                 Grid.Column="4"
@@ -354,15 +350,13 @@
             <Button 
                 Grid.Row="5" 
                 Grid.Column="5"
-                x:Name="boutonPause" 
+                x:Name="boutPause" 
                 Content="P" 
                 Height="70" Width="70" 
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center" 
                 FontSize="28" 
-                BorderBrush="#00707070" 
-                PreviewKeyDown="butTriche_PreviewKeyDown">
-            </Button>
+                BorderBrush="#00707070" PreviewKeyDown="BoutPause_PreviewKeyDown"/>
 
 
         </Grid>

@@ -26,9 +26,15 @@ namespace SlidingPuzzle
         private int choixMode;
         private int choixVolume;
         private int niveau;
+
         private Key toucheTriche = Key.C;
+        private Key toucheAfficherImage = Key.I;
+        private Key toucheRecommencer = Key.R;
+        private Key touchePause = Key.P;
 
         private TimeSpan tempsLimite = TimeSpan.Zero;
+        private int indiceSourceImagePuzzle = 0;
+        private bool contreLaMontreActiver = false;
 
         public TimeSpan TempsLimite
         {
@@ -36,18 +42,11 @@ namespace SlidingPuzzle
             set { tempsLimite = value; }
         }
 
-
-
-        private bool contreLaMontreActiver = false;
-
         public bool ContreLaMontreActiver
         {
             get { return contreLaMontreActiver; }
             set { contreLaMontreActiver = value; }
         }
-
-
-        private int indiceSourceImagePuzzle = 0;
 
         public int IndiceSourceImagePuzzle
         {
@@ -59,49 +58,46 @@ namespace SlidingPuzzle
         public Menu()
         {
             InitializeComponent();
-            ImageBrush fondCarton = new ImageBrush();
-            ImageBrush flecheRetour = new ImageBrush();
-            ImageBrush symboleParam = new ImageBrush();
-            ImageBrush contourLettre = new ImageBrush();
-            ImageBrush maisonMenu = new ImageBrush();
-            fondCarton.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/fond.png"));
-            flecheRetour.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/back.png"));
-            maisonMenu.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/hut.png"));
-            symboleParam.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/settings.png"));
-            contourLettre.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/toucheClavier.png"));
-            canvaParam.Background = fondCarton;
-            grilleMenu.Background = fondCarton;
-            buttRetour.Background = flecheRetour;
-            butQuitter.Background = maisonMenu;
-            butParam.Background = symboleParam;
-            butTriche.Background = contourLettre;
-
             musiqueFond.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory + "son/musique.wav"));
-            //musiqueFond.Play();
+            musiqueFond.Play();
             musiqueFond.MediaEnded += (sender, e) => musiqueFond.Position = TimeSpan.Zero;
             musiqueFond.Volume = choixVolume / 100;
 
             ImageBrush SkinBoutonQuitter = new ImageBrush();
             SkinBoutonQuitter.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/close-window.png"));
-            butQuitter.Background = SkinBoutonQuitter;
+            boutQuitter.Background = SkinBoutonQuitter;
 
             ImageBrush SkinboutontParametre = new ImageBrush();
             SkinboutontParametre.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/settings.png"));
-            butParam.Background = SkinboutontParametre;
+            boutParam.Background = SkinboutontParametre;
 
             ImageBrush Skinfond = new ImageBrush();
             Skinfond.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/fond.png"));
-            GrillePageParametre.Background = Skinfond;
-            PagePrincipal.Background = Skinfond;
+            grillePageParametre.Background = Skinfond;
+            pagePrincipal.Background = Skinfond;
 
             ImageBrush SkinbouttonRetour = new ImageBrush();
             SkinbouttonRetour.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/back.png"));
-            boutonRetour.Background = SkinbouttonRetour;
-            
+            boutRetour.Background = SkinbouttonRetour;
 
             ImageBrush SkinbouttonTriche = new ImageBrush();
             SkinbouttonTriche.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/toucheClavier.png"));
-            boutonTriche.Background = SkinbouttonTriche;
+            boutTriche.Background = SkinbouttonTriche;
+            boutRecommencer.Background = SkinbouttonTriche;
+            boutPause.Background = SkinbouttonTriche;
+            boutAfficherImage.Background = SkinbouttonTriche;
+
+            ImageBrush skinBoutonJouer = new ImageBrush();
+            skinBoutonJouer.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/boutonJouer.png"));
+            boutJouer.Background = skinBoutonJouer;
+
+            ImageBrush skinFlecheGauche = new ImageBrush();
+            skinFlecheGauche.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/flecheGauche.png"));
+            boutChangerImagePuzzleGauche.Background = skinFlecheGauche;
+
+            ImageBrush skinFlecheDroite = new ImageBrush();
+            skinFlecheDroite.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/flecheDroite.png"));
+            boutChangerImagePuzzleDroit.Background = skinFlecheDroite;
 
 
             ChangerImagePuzzle();
@@ -115,14 +111,6 @@ namespace SlidingPuzzle
             RectangleImagePuzzle.Fill = SkinImagePuzzle;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            choixDiff = comboBoxChoix.SelectedIndex;
-            choixMode = 1;
-            choixVolume = (int)sliderSon.Value;
-            this.DialogResult = true;
-        }
-
         public int Niveau
         {
             get { if (choixDiff == 0) niveau = 9; else if (choixDiff == 1) niveau = 16; else niveau = 25; return niveau; }
@@ -133,52 +121,87 @@ namespace SlidingPuzzle
             get { return choixMode; }
         }
 
-
-        private void BoutonQuitter_Click(object sender, RoutedEventArgs e)
-        {
-            this.DialogResult = false;
-        }
-
-        private void BoutonPageParametre_Click(object sender, RoutedEventArgs e)
-        {
-            GrillePageParametre.Visibility = Visibility.Visible;
-        }
-
-        private void BoutonRetour_Clique(object sender, RoutedEventArgs e)
-        {
-            GrillePageParametre.Visibility = Visibility.Hidden;
-        }
-
-
         public Key ToucheTriche
         {
             get { return toucheTriche; }
         }
 
-        private void butTriche_PreviewKeyDown(object sender, KeyEventArgs e)
+        public Key ToucheAfficherImage
         {
-            boutonTriche.Content = e.Key.ToString();
+            get { return toucheAfficherImage; }
+        }
+
+        public Key ToucheRecommencer
+        {
+            get { return toucheRecommencer;}
+        }
+        
+        public Key TouchePause
+        {
+            get { return touchePause; }
+        }
+
+        private void BoutJouer_Click(object sender, RoutedEventArgs e)
+        {
+            choixDiff = comboBoxChoix.SelectedIndex;
+            choixMode = 1;
+            choixVolume = (int)sliderSon.Value;
+            this.DialogResult = true;
+        }
+
+        private void BoutQuitter_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
+        }
+
+        private void BoutParam_Click(object sender, RoutedEventArgs e)
+        {
+            grillePageParametre.Visibility = Visibility.Visible;
+        }
+
+        private void BoutRetour_Clique(object sender, RoutedEventArgs e)
+        {
+            grillePageParametre.Visibility = Visibility.Hidden;
+        }
+
+        private void BoutTriche_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            boutTriche.Content = e.Key.ToString();
             toucheTriche = e.Key;
         }
 
-        private void sliderSon_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void BoutAfficherImage_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            sliderSon.Value = choixVolume;
+            boutAfficherImage.Content = e.Key.ToString();
+            toucheAfficherImage = e.Key;
         }
 
-        private void bouttonChangerImagePuzzleGauche_Click(object sender, RoutedEventArgs e)
+        private void BoutRecommencer_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            boutRecommencer.Content = e.Key.ToString();
+            toucheRecommencer = e.Key;
+        }
+
+        private void BoutPause_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            boutPause.Content = e.Key.ToString();
+            touchePause = e.Key;
+        }
+
+        private void BoutChangerImagePuzzleDroit_Click(object sender, RoutedEventArgs e)
         {
             if (IndiceSourceImagePuzzle == 0)
             {
                 IndiceSourceImagePuzzle = 3;
-            } else
+            }
+            else
             {
                 IndiceSourceImagePuzzle -= 1;
             }
             ChangerImagePuzzle();
         }
 
-        private void bouttonChangerImagePuzzleDroit_Click(object sender, RoutedEventArgs e)
+        private void BoutChangerImagePuzzleGauche_Click(object sender, RoutedEventArgs e)
         {
             if (IndiceSourceImagePuzzle == 3)
             {
@@ -191,7 +214,7 @@ namespace SlidingPuzzle
             ChangerImagePuzzle();
         }
 
-        private void BooleenBoutonContreLaMontre_Click(object sender, RoutedEventArgs e)
+        private void CheckBoxContreLaMontre_Click(object sender, RoutedEventArgs e)
         {
             if (ContreLaMontreActiver)
             {
@@ -199,7 +222,7 @@ namespace SlidingPuzzle
                 sliderTemps.Visibility = Visibility.Collapsed;
                 textBoxTemps.Visibility = Visibility.Collapsed;
                 labelMinutes.Visibility = Visibility.Collapsed;
-            } 
+            }
             else
             {
                 ContreLaMontreActiver = true;
@@ -207,6 +230,10 @@ namespace SlidingPuzzle
                 textBoxTemps.Visibility = Visibility.Visible;
                 labelMinutes.Visibility = Visibility.Visible;
             }
+        }
+        private void sliderSon_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            sliderSon.Value = choixVolume;
         }
 
         private void sliderTemps_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
