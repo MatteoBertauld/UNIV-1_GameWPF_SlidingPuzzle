@@ -32,6 +32,13 @@ namespace SlidingPuzzle
         private Key toucheRecommencer = Key.R;
         private Key touchePause = Key.P;
 
+
+        public int ChoixVolume
+        {
+            get { return choixVolume; }
+            set { choixVolume = value; }
+        }
+
         string sourceGrilleChiffre = "grilleChiffre.png";
         private bool grilleChiffre = false;
 
@@ -43,7 +50,6 @@ namespace SlidingPuzzle
 
         private TimeSpan tempsLimite = TimeSpan.Zero;
         private int indiceSourceImagePuzzle = 0;
-        private bool contreLaMontreActiver = false;
 
         public TimeSpan TempsLimite
         {
@@ -213,9 +219,6 @@ namespace SlidingPuzzle
         {
             if (IndiceSourceImagePuzzle == 0)
             {
-                IndiceSourceImagePuzzle = 3;
-            }
-            else
                 if (GrilleChiffre)
                 {
                     IndiceSourceImagePuzzle = 3;
@@ -265,7 +268,7 @@ namespace SlidingPuzzle
         }
         private void sliderSon_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            sliderSon.Value = choixVolume;
+            ChoixVolume = (int)sliderSon.Value;
         }
 
         private void sliderTemps_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
