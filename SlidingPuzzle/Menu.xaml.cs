@@ -28,6 +28,15 @@ namespace SlidingPuzzle
         private int niveau;
         private Key toucheTriche = Key.C;
 
+        string sourceGrilleChiffre = "grilleChiffre.png";
+        private bool grilleChiffre = false;
+
+        public bool GrilleChiffre
+        {
+            get { return grilleChiffre; }
+            set { grilleChiffre = value; }
+        }
+
         private TimeSpan tempsLimite = TimeSpan.Zero;
 
         public TimeSpan TempsLimite
@@ -36,7 +45,7 @@ namespace SlidingPuzzle
             set { tempsLimite = value; }
         }
 
-
+        private string SourceGrilleChiffreImage = "grilleChiffre.png";
 
         private bool contreLaMontreActiver = false;
 
@@ -92,8 +101,17 @@ namespace SlidingPuzzle
 
         private void ChangerImagePuzzle()
         {
+            string source = "";
             ImageBrush SkinImagePuzzle = new ImageBrush();
-            string source = MainWindow.TableauSourceImages[IndiceSourceImagePuzzle];
+            if (grilleChiffre) 
+            { 
+                source = "grilleChiffre.png";
+            }
+            else
+            {
+                source = MainWindow.TableauSourceImages[IndiceSourceImagePuzzle];
+            }
+            
             SkinImagePuzzle.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Images/FondPuzzle/" + source));
             RectangleImagePuzzle.Fill = SkinImagePuzzle;
         }
@@ -146,15 +164,20 @@ namespace SlidingPuzzle
 
         private void sliderSon_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            sliderSon.Value = choixVolume;
+            choixVolume = (int)sliderSon.Value;
         }
 
         private void bouttonChangerImagePuzzleGauche_Click(object sender, RoutedEventArgs e)
         {
             if (IndiceSourceImagePuzzle == 0)
             {
-                IndiceSourceImagePuzzle = 3;
-            } else
+                if (GrilleChiffre)
+                {
+                    IndiceSourceImagePuzzle = 3;
+                }
+                GrilleChiffre = !GrilleChiffre;
+            } 
+            else
             {
                 IndiceSourceImagePuzzle -= 1;
             }
@@ -165,7 +188,11 @@ namespace SlidingPuzzle
         {
             if (IndiceSourceImagePuzzle == 3)
             {
-                IndiceSourceImagePuzzle = 0;
+                if (GrilleChiffre)
+                {
+                    IndiceSourceImagePuzzle = 0;
+                }
+                GrilleChiffre = !GrilleChiffre;
             }
             else
             {

@@ -14,7 +14,7 @@
     mc:Ignorable="d">
     <Grid x:Name="FenetreMenuGrille">
 
-        <Grid x:Name="PagePrincipal">
+        <Grid x:Name="PagePrincipal" Visibility="Visible">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="2*" />
@@ -31,164 +31,170 @@
             </Grid.RowDefinitions>
 
             <ComboBox
-            x:Name="comboBoxChoix"
-            Grid.Row="1" 
-            Grid.Column="1"
-            Grid.RowSpan="2"
-            FontSize="24" 
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Center">
+                x:Name="comboBoxChoix"
+                Grid.Row="1"
+                Grid.RowSpan="2"
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="24">
                 <ComboBoxItem Content="Facile : 3x3" IsSelected="True" />
                 <ComboBoxItem Content="Moyen : 4x4" />
                 <ComboBoxItem Content="Difficile : 5x5" />
             </ComboBox>
 
             <Label
-            Grid.Row="1" 
-            Grid.Column="1"
-            x:Name="labDifficulte"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Top"
-            Content="Difficulté"
-            FontSize="24"
-            FontWeight="Bold"
-            Foreground="White" Margin="0,0,0,0" />
-
-            <Label
-            x:Name="labMenu"
-            Margin="0,33,0,0"
-            Grid.Row="0" 
-            Grid.Column="2"
-            Content="MENU"
-            HorizontalContentAlignment="Center"
-            VerticalContentAlignment="Center"
-            FontSize="50"
-            Foreground="White" FontWeight="Bold" BorderBrush="Black" BorderThickness="5,5,5,5" />
-
-            <Button
-            x:Name="boutonJouer"
-            Grid.Row="1" 
-            Grid.Column="2"
-            Grid.RowSpan="2"
-            Width="120"
-            Height="80"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            BorderBrush="Black"
-            Click="Button_Click"
-            Content="JOUER"
-            FontSize="30" />
-
-            <Label
-            Grid.Row="4" 
-            Grid.Column="2"
-            x:Name="labelAuteur"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Content="BERTAULD Mattéo | ALLEON Victor"
-            FontSize="14"
-            FontWeight="Bold" />
-
-            <Button
-            x:Name="butQuitter"
-            Width="50"
-            Height="50"
-            Grid.Row="0" 
-            Grid.Column="0"
-            Margin="15,14,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Click="BoutonQuitter_Click" BorderBrush="#00FF0000"
-            />
-
-            <Button 
-            x:Name="butParam"
-            Width="50"
-            Height="50"
-            Grid.Row="4" 
-            Grid.Column="4"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            Margin="0,0,15,15"
-            BorderBrush="#00FF0000"
-            Click="BoutonPageParametre_Click">
-            </Button>
-            <CheckBox 
-            x:Name="BooleenBoutonContreLaMontre" 
-            Content="Contre la montre" 
-            Grid.Row="1" 
-            Grid.Column="3"
-            VerticalAlignment="Bottom" 
-            HorizontalAlignment="Center" 
-            Click="BooleenBoutonContreLaMontre_Click" 
-            IsChecked="False" 
-            FontSize="20"
-            Padding="5,-8,0,0"/>
-            <Label
-            Grid.Row="2" 
-            Grid.Column="4"
-            VerticalAlignment="Top" 
-            Margin="28,14,0,0"
-            x:Name="labelMinutes" 
-            Content="min" 
-            HorizontalAlignment="Left" 
-            Visibility="Visible"/>
-            <TextBox 
-            x:Name="textBoxTemps" 
-            Grid.Row="2" 
-            Grid.Column="4"
-            VerticalAlignment="Top" 
-            Margin="8,18,0,0"
-            Text="{Binding ElementName=sliderTemps, Path=Value, UpdateSourceTrigger=PropertyChanged}"
-            TextAlignment="Center" 
-            HorizontalAlignment="Left" 
-            Visibility="Visible"/>
-            <Slider 
-            x:Name="sliderTemps"
-            Grid.Row="2" 
-            Grid.Column="3"
-            VerticalAlignment="Top" 
-            Margin="0,20,0,0"
-            Height="30" 
-            Visibility="Visible" 
-            ValueChanged="sliderTemps_ValueChanged"
-            Maximum="30" 
-            TickPlacement="BottomRight" 
-            IsSnapToTickEnabled="True" 
-            Minimum="1" 
-            Value="10"/>
-            <Rectangle
-            Grid.Row="3" 
-            Grid.Column="2"
-            x:Name="RectangleImagePuzzle"
-            Fill="#FFBE3131"
-            Stroke="Black" 
-            StrokeThickness="3"/>
-            <Button 
-                Grid.Row="3" 
+                x:Name="labDifficulte"
+                Grid.Row="1"
                 Grid.Column="1"
-                x:Name="bouttonChangerImagePuzzleGauche" 
-                Content="Gauche" 
-                HorizontalAlignment="Right" 
+                Margin="0,0,0,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Content="Difficulté"
+                FontSize="24"
+                FontWeight="Bold"
+                Foreground="White" />
+
+            <Label
+                x:Name="labMenu"
+                Grid.Row="0"
+                Grid.Column="2"
+                Margin="0,33,0,0"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                BorderBrush="Black"
+                BorderThickness="5,5,5,5"
+                Content="MENU"
+                FontSize="50"
+                FontWeight="Bold"
+                Foreground="White" />
+
+            <Button
+                x:Name="boutonJouer"
+                Grid.Row="1"
+                Grid.RowSpan="2"
+                Grid.Column="2"
+                Width="120"
+                Height="80"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Margin="0,0,25,0"
-                Click="bouttonChangerImagePuzzleGauche_Click" 
-                Width="50" 
-                Height="50"/>
-            <Button 
-                Grid.Row="3" 
+                BorderBrush="Black"
+                Click="Button_Click"
+                Content="JOUER"
+                FontSize="30" />
+
+            <Label
+                x:Name="labelAuteur"
+                Grid.Row="4"
+                Grid.Column="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Content="BERTAULD Mattéo | ALLEON Victor"
+                FontSize="14"
+                FontWeight="Bold" />
+
+            <Button
+                x:Name="butQuitter"
+                Grid.Row="0"
+                Grid.Column="0"
+                Width="50"
+                Height="50"
+                Margin="15,14,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                BorderBrush="#00FF0000"
+                Click="BoutonQuitter_Click" />
+
+            <Button
+                x:Name="butParam"
+                Grid.Row="4"
+                Grid.Column="4"
+                Width="50"
+                Height="50"
+                Margin="0,0,15,15"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                BorderBrush="#00FF0000"
+                Click="BoutonPageParametre_Click" />
+            <CheckBox
+                x:Name="BooleenBoutonContreLaMontre"
+                Grid.Row="1"
                 Grid.Column="3"
-                x:Name="bouttonChangerImagePuzzleDroit" 
-                Content="Droite" 
-                HorizontalAlignment="Left" 
-                VerticalAlignment="Center" 
-                 Margin="25,0,0,0"
-                Click="bouttonChangerImagePuzzleDroit_Click" 
-                Width="50" 
-                Height="50"/>
+                Padding="5,-8,0,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Click="BooleenBoutonContreLaMontre_Click"
+                Content="Contre la montre"
+                FontSize="20"
+                IsChecked="False" />
+            <Label
+                x:Name="labelMinutes"
+                Grid.Row="2"
+                Grid.Column="4"
+                Margin="28,14,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="min"
+                Visibility="Visible" />
+            <TextBox
+                x:Name="textBoxTemps"
+                Grid.Row="2"
+                Grid.Column="4"
+                Margin="8,18,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Text="{Binding ElementName=sliderTemps, Path=Value, UpdateSourceTrigger=PropertyChanged}"
+                TextAlignment="Center"
+                Visibility="Visible" />
+            <Slider
+                x:Name="sliderTemps"
+                Grid.Row="2"
+                Grid.Column="3"
+                Height="30"
+                Margin="0,20,0,0"
+                VerticalAlignment="Top"
+                IsSnapToTickEnabled="True"
+                Maximum="30"
+                Minimum="1"
+                TickPlacement="BottomRight"
+                ValueChanged="sliderTemps_ValueChanged"
+                Visibility="Visible"
+                Value="10" />
+            <Rectangle
+                x:Name="RectangleImagePuzzle"
+                Grid.Row="3"
+                Grid.Column="2"
+                Fill="#FFBE3131"
+                Stroke="Black"
+                StrokeThickness="3" />
+            <Button
+                x:Name="bouttonChangerImagePuzzleGauche"
+                Grid.Row="3"
+                Grid.Column="1"
+                Width="50"
+                Height="50"
+                Margin="0,0,25,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Click="bouttonChangerImagePuzzleGauche_Click"
+                Content="Gauche" />
+            <Button
+                x:Name="bouttonChangerImagePuzzleDroit"
+                Grid.Row="3"
+                Grid.Column="3"
+                Width="50"
+                Height="50"
+                Margin="25,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Click="bouttonChangerImagePuzzleDroit_Click"
+                Content="Droite" />
         </Grid>
 
-        <Grid x:Name="GrillePageParametre" Visibility="Hidden" Background="Gray">
+        <Grid
+            x:Name="GrillePageParametre"
+            Background="Gray"
+            Visibility="Visible">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.09*" />
@@ -210,8 +216,9 @@
                 <RowDefinition Height="0.25*" />
             </Grid.RowDefinitions>
 
-            <Label x:Name="labelParametre"
-                Grid.Row="1" 
+            <Label
+                x:Name="labelParametre"
+                Grid.Row="1"
                 Grid.Column="2"
                 Grid.ColumnSpan="4"
                 HorizontalAlignment="Center"
@@ -222,149 +229,149 @@
                 Foreground="White" />
 
             <Button
-                Grid.Row="1" 
-                Grid.Column="1"
                 x:Name="boutonRetour"
+                Grid.Row="1"
+                Grid.Column="1"
                 Width="50"
                 Height="50"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 BorderBrush="#00707070"
-                Click="BoutonRetour_Clique">
-            </Button>
+                Click="BoutonRetour_Clique" />
 
-            <Slider 
-                Grid.Row="2" 
-                Grid.Column="2"
-                Grid.ColumnSpan="4"
+            <Slider
                 x:Name="sliderSon"
-                Height="35"
-                VerticalAlignment="Center" 
-                Minimum="0" 
-                Maximum="100" 
-                ValueChanged="sliderSon_ValueChanged" 
-                TickPlacement="BottomRight" 
-                IsSnapToTickEnabled="True" 
-                Interval="5" 
-                TickFrequency="5"/>
-            <Label 
-                Grid.ColumnSpan="2"
-                HorizontalContentAlignment="Center"
-                Grid.Row="2" 
-                Grid.Column="3"
-                x:Name="labVolume" 
-                Content="Volume" 
-                Height="40" 
-                FontSize="24" 
-                Foreground="White" 
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Top"/>
-
-            <Label 
+                Grid.Row="2"
+                Grid.Column="2"
                 Grid.ColumnSpan="4"
-                Grid.Row="3" 
-                Grid.Column="2"
-                x:Name="labParamTouche" 
-                Content="Gestion des touches" 
+                VerticalAlignment="Center"
+                IsSnapToTickEnabled="True"
+                Maximum="100"
+                Minimum="0"
+                TickFrequency="5"
+                TickPlacement="BottomRight"
+                ValueChanged="sliderSon_ValueChanged"
+                Value="50" />
+            <Label
+                x:Name="labVolume"
+                Grid.Row="2"
+                Grid.Column="3"
+                Grid.ColumnSpan="2"
+                Height="40"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Center" 
-                Foreground="White" 
-                FontSize="30" 
-                FontWeight="Bold"/>
+                VerticalAlignment="Top"
+                HorizontalContentAlignment="Center"
+                Content="Volume"
+                FontSize="24"
+                Foreground="White" />
 
-            <Label x:Name="labelTriche" 
-                Padding="0,0,0,5"
-                Grid.Row="4" 
+            <Label
+                x:Name="labParamTouche"
+                Grid.Row="3"
                 Grid.Column="2"
-                Content="Finir le niveau :" 
-                FontSize="24" 
-                Foreground="White" 
-                HorizontalAlignment="Right" 
-                VerticalAlignment="Center" />
+                Grid.ColumnSpan="4"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Content="Gestion des touches"
+                FontSize="30"
+                FontWeight="Bold"
+                Foreground="White" />
 
-            <Button 
-                Grid.Row="4" 
-                Grid.Column="3"
-                x:Name="boutonTriche" 
-                Content="C" 
-                Height="70" Width="70" 
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Center" 
-                FontSize="28" 
-                BorderBrush="#00707070" 
-                PreviewKeyDown="butTriche_PreviewKeyDown">
-            </Button>
-
-            <Label x:Name="labelRecommencer" 
-                Padding="0,0,0,5"
-                Grid.Row="5" 
+            <Label
+                x:Name="labelTriche"
+                Grid.Row="4"
                 Grid.Column="2"
-                Content="Recommencer :" 
-                FontSize="24" 
-                Foreground="White" 
-                HorizontalAlignment="Right" 
-                VerticalAlignment="Center" />
+                Padding="0,0,0,5"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Content="Finir le niveau :"
+                FontSize="24"
+                Foreground="White" />
 
-            <Button 
-                Grid.Row="5" 
+            <Button
+                x:Name="boutonTriche"
+                Grid.Row="4"
                 Grid.Column="3"
-                x:Name="boutonRecommencer" 
-                Content="R" 
-                Height="70" Width="70" 
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Center" 
-                FontSize="28" 
-                BorderBrush="#00707070" 
-                PreviewKeyDown="butTriche_PreviewKeyDown">
-            </Button>
+                Width="70"
+                Height="70"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                BorderBrush="#00633925"
+                Content="C"
+                FontSize="28"
+                PreviewKeyDown="butTriche_PreviewKeyDown" Background="#FF737373" />
 
-            <Label x:Name="labelAfficherImage" 
+            <Label
+                x:Name="labelRecommencer"
+                Grid.Row="5"
+                Grid.Column="2"
                 Padding="0,0,0,5"
-                Grid.Row="4" 
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Content="Recommencer :"
+                FontSize="24"
+                Foreground="White" />
+
+            <Button
+                x:Name="boutonRecommencer"
+                Grid.Row="5"
+                Grid.Column="3"
+                Width="70"
+                Height="70"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                BorderBrush="#00707070"
+                Content="R"
+                FontSize="28"
+                PreviewKeyDown="butTriche_PreviewKeyDown" />
+
+            <Label
+                x:Name="labelAfficherImage"
+                Grid.Row="4"
                 Grid.Column="4"
-                Content="afficher image :" 
-                FontSize="24" 
-                Foreground="White" 
-                HorizontalAlignment="Right" 
-                VerticalAlignment="Center" />
-
-            <Button 
-                Grid.Row="4" 
-                Grid.Column="5"
-                x:Name="boutonAfficherImage" 
-                Content="I" 
-                Height="70" Width="70" 
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Center" 
-                FontSize="28" 
-                BorderBrush="#00707070" 
-                PreviewKeyDown="butTriche_PreviewKeyDown">
-            </Button>
-
-            <Label x:Name="labelPause" 
                 Padding="0,0,0,5"
-                Grid.Row="5" 
-                Grid.Column="4"
-                Content="Pause :" 
-                FontSize="24" 
-                Foreground="White" 
-                HorizontalAlignment="Right" 
-                VerticalAlignment="Center" />
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Content="afficher image :"
+                FontSize="24"
+                Foreground="White" />
 
-            <Button 
-                Grid.Row="5" 
+            <Button
+                x:Name="boutonAfficherImage"
+                Grid.Row="4"
                 Grid.Column="5"
-                x:Name="boutonPause" 
-                Content="P" 
-                Height="70" Width="70" 
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Center" 
-                FontSize="28" 
-                BorderBrush="#00707070" 
-                PreviewKeyDown="butTriche_PreviewKeyDown">
-            </Button>
+                Width="70"
+                Height="70"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                BorderBrush="#00707070"
+                Content="I"
+                FontSize="28"
+                PreviewKeyDown="butTriche_PreviewKeyDown" />
 
+            <Label
+                x:Name="labelPause"
+                Grid.Row="5"
+                Grid.Column="4"
+                Padding="0,0,0,5"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Content="Pause :"
+                FontSize="24"
+                Foreground="White" />
 
+            <Button
+                x:Name="boutonPause"
+                Grid.Row="5"
+                Grid.Column="5"
+                Width="70"
+                Height="70"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                BorderBrush="#00707070"
+                Content="P"
+                FontSize="28"
+                PreviewKeyDown="butTriche_PreviewKeyDown" />
         </Grid>
     </Grid>
 </Window>
